@@ -6,7 +6,6 @@ void render(t_cube *cube)
 	int	y;
 	int	z;
 
-
 	int i,k;
 
 	k = 0;
@@ -15,10 +14,10 @@ void render(t_cube *cube)
 	cube->win_img_ptr = mlx_new_image(cube->mlx_s.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	cube->win_addr = (int *)mlx_get_data_addr(cube->win_img_ptr, &x, &y, &z);
 
-	while (k != WINDOW_HEIGHT / 2)
+	while (k != WINDOW_HEIGHT)
 	{
 		i = -1;
-		if (i < WINDOW_WIDTH / 2)
+		if (k < WINDOW_HEIGHT / 2)
 		{
 			while (i++ != WINDOW_WIDTH)
 				cube->win_addr[WINDOW_WIDTH * k + i] = RED_PIXEL;
