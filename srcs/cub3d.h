@@ -3,6 +3,8 @@
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 800
+# define MINIMAP_WIDTH	WINDOW_WIDTH / 2
+# define MINIMAP_HEIGHT	WINDOW_HEIGHT / 2
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 
@@ -11,17 +13,19 @@
 #include <math.h>
 #include <fcntl.h>
 
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	void	*ptr_minimap_img;
-} t_mlx;
+// typedef struct s_mlx
+// {
+// 	void	*mlx;
+// 	void	*win;
+// 	void	*ptr_minimap_img;
+// } t_mlx;
 
 typedef struct s_map
 {
 	int		map_width;
 	int		map_height;
+	void	*img_ptr;
+	int		*addr;
 } t_map;
 
 
@@ -30,10 +34,11 @@ typedef struct s_cube
 	char	**map_file;
 	char	**map;
 	int		count;
+	void	*mlx;
+	void	*win;
 	int		*win_addr;
 	void	*win_img_ptr;
 	t_map	map_s;
-	t_mlx	mlx_s;
 } t_cube;
 
 
@@ -42,6 +47,13 @@ int		map_init(char **av, t_cube *cube);
 //////////render//////////
 void	render(t_cube *cube);
 
-void	mini_map(t_cube *cube);
+void	init(t_cube *cube);
+void	init_win(t_cube *cube);
+void	init_img(t_cube *cube);
+
+void	draw_win(t_cube *cube);
+void	draw_img(t_cube *cube);
+unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
+
 void	check_map_size(t_cube *cube);
 #endif
