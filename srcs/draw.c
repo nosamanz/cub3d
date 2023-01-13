@@ -23,6 +23,57 @@ void	draw_win(t_cube *cube)
 	}
 }
 
+// void	ft_draw_small_square(t_cube *cube, int x, int y, int i1, int k1, unsigned long color)
+// {
+// 	int i;
+// 	static int	k;
+
+// 	i = 0;
+// 	i1++;
+// 	k1++;
+// 	while (k1 != y)
+// 	{
+// 		while (i < x)
+// 		{
+// 			cube->map_s.addr[k * MINIMAP_WIDTH + i] = color;
+// 			i++;
+// 		}
+// 		i = 0;
+// 		k++;
+// 	}
+// }
+
+void ft_draw_small_square2(t_cube *cube, int x, int y, int a, int z, int color)
+{
+	int k = 0;
+	int i;
+	int temp;
+	int tempz;
+
+	tempz = z;
+	temp = a;
+	x = temp + x;
+	y = z + y;
+	i = 0;
+	while (z <= y)
+	{
+		while (temp <= x)
+		{
+			if (tempz == z)
+				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
+			else if (temp + 1 != x)
+				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = color;
+			else
+				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
+			i++;
+			temp++;
+		}
+		i = 0;
+		temp = a;
+		z++;
+	}
+}
+
 void	draw_img(t_cube *cube)
 {
 	int	i;
@@ -35,7 +86,6 @@ void	draw_img(t_cube *cube)
 	printf("x%d = WIDTH:%d / %d\n", x ,MINIMAP_WIDTH, cube->map_s.map_width);
 	int y = MINIMAP_HEIGHT / cube->map_s.map_height;
 	printf("y%d = HEIGHT:%d / %d\n", y, MINIMAP_HEIGHT, cube->map_s.map_height);
-	//printf("x:%d y:%d\n", x,y);
 	k = 0;
 	j = 0;
 	i = 0;
@@ -48,38 +98,34 @@ void	draw_img(t_cube *cube)
 	}
 	i = 0;
 	k = 0;
-	int a = 0;
-
-
-	int i3 = 0;
-	// while (cube->map[i])
-	// {
-		j = 0;
-		// while (cube->map[i][j])
-		// {
-			while (k != x * y)
+	int c = 0;
+	int d = 0;
+	int l = 0;
+	while (k != MINIMAP_HEIGHT)
+	{
+		while (i < MINIMAP_WIDTH)
+		{
+			if (cube->map[c] == NULL)
+				break;
+			if (cube->map[c][d] == '1')
 			{
-				i2 = -1;
-				while (i2++ < x)
-				{
-					if (cube->map[i][j] == '1')
-					{
-						while ()
-						cube->map_s.addr[x * k + i2] = rgb_to_hex(0, 0, 190, 0);
-						j++;
-					}
-					else
-					{
-						cube->map_s.addr[x * k + i2] = rgb_to_hex(0, 255, 0, 0);
-						j++;
-					}
-					i3 = 0;
-				}
-				k++;
-				if (k % x == 0)
-					i++;
+				ft_draw_small_square2(cube, x, y, i, l, GREEN_PIXEL);
 			}
-		//}
-		i++;
-	//}
+			else if (cube->map[c][d] == '0')
+			{
+				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(0,255,255,255));
+			}
+			else if (cube->map[c][d] != '\n' && cube->map[c][d] != '\0')
+			{
+				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(0,255,255,255));
+			}
+			i += x;
+			d++;
+		}
+		d = 0;
+		i = 0;
+		l = y + l;
+		c++;
+		k++;
+	}
 }
