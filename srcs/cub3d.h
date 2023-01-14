@@ -46,6 +46,8 @@ typedef struct s_cube
 
 int		name_chck(char **av);
 int		map_init(char **av, t_cube *cube);
+void	check_map_size(t_cube *cube);
+void	fill_map_spaces(t_cube *cube);
 //////////render//////////
 void	render(t_cube *cube);
 
@@ -57,5 +59,4 @@ void	draw_win(t_cube *cube);
 void	draw_img(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
 
-void	check_map_size(t_cube *cube);
 #endif

@@ -111,7 +111,7 @@ void	draw_img(t_cube *cube)
 			}
 			else if (cube->map[c][d] != '\n' && cube->map[c][d] != '\0')
 			{
-				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(255,255,255,255));
+				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(0,255,255,255));
 			}
 			//cube->map_s.addr[k * MINIMAP_WIDTH + i] = rgb_to_hex(0, 0, 0, 255);
 			i += x;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osarihan <osarihan@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/01/13 13:51:45 by osarihan         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:57:17 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,20 @@ void	take_map(t_cube *cube)
 	while (cube->map_file[i][0] != '1' && cube->map_file[i][0] != '0')
 		i++;
 	cube->map = malloc(sizeof(char **) * 10000);
-	while (cube->map_file[i])
+	while (cube->map_file[i] != NULL)
 	{
+		printf("slm\n");
+		if (cube->map_file[i][0] != '1')
+			break;
 		cube->map[j] = ft_strdup(cube->map_file[i]);
 		j++;
 		i++;
 	}
+	printf("sa\n");
 	i = 0;
 	while(cube->map[i] != NULL)
 	{
+		ft_putstr_fd("MAP", 1);
 		ft_putstr_fd(cube->map[i], 1);
 		i++;
 	}
@@ -61,17 +66,13 @@ int	map_init(char **av, t_cube *cube)
 	{
 		str = get_next_line(fd);
 		if (str != NULL)
-		{
 			cube->map_file[i] = ft_strdup(str);
-			//printf("arry::%s\n", cube->map_file[i]);
-		}
 		else
 			break;
 		free(str);
 		i++;
 	}
 	take_map(cube);
-	
 	return (1);
 }
 
