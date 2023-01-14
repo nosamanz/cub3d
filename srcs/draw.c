@@ -16,32 +16,12 @@ void	draw_win(t_cube *cube)
 		}
 		else
 		{
-			while (i++ != WINDOW_WIDTH)
+			while (++i != WINDOW_WIDTH)
 				cube->win_addr[WINDOW_WIDTH * k + i] = rgb_to_hex(0, 120, 0, 0);
 		}
 		k++;
 	}
 }
-
-// void	ft_draw_small_square(t_cube *cube, int x, int y, int i1, int k1, unsigned long color)
-// {
-// 	int i;
-// 	static int	k;
-
-// 	i = 0;
-// 	i1++;
-// 	k1++;
-// 	while (k1 != y)
-// 	{
-// 		while (i < x)
-// 		{
-// 			cube->map_s.addr[k * MINIMAP_WIDTH + i] = color;
-// 			i++;
-// 		}
-// 		i = 0;
-// 		k++;
-// 	}
-// }
 
 void ft_draw_small_square2(t_cube *cube, int x, int y, int a, int z, int color)
 {
@@ -52,26 +32,38 @@ void ft_draw_small_square2(t_cube *cube, int x, int y, int a, int z, int color)
 
 	tempz = z;
 	temp = a;
-	x = temp + x;
-	y = z + y;
+	if (temp + x <= MINIMAP_WIDTH)
+		x = temp + x;
+	if (z + y <= MINIMAP_HEIGHT)
+		y = z + y;
 	i = 0;
-	while (z <= y)
+	while (z < y)
 	{
 		while (temp <= x)
 		{
-			if (tempz == z)
-				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
-			else if (temp + 1 != x)
+			// if (tempz == z)
+			// 	cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
+			if (temp != x)
 				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = color;
-			else
-				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
-			i++;
+			// else
+			// 	cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
 			temp++;
 		}
-		i = 0;
 		temp = a;
 		z++;
 	}
+	i = 0;
+	// if (z + cube->map_s.mini_cub_h >= MINIMAP_HEIGHT && a + cube->map_s.mini_cub_w >= MINIMAP_WIDTH)
+	// {
+	// 	printf("slm\n");
+	// 	z--;
+	// 	while (i <= MINIMAP_WIDTH)
+	// 	{
+	// 		printf("aaaaaaa%d\n", i);
+	// 		cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 0, 0, 0);
+	// 		i++;
+	// 	}
+	// }
 }
 
 void	draw_img(t_cube *cube)
@@ -83,8 +75,10 @@ void	draw_img(t_cube *cube)
 
 	//minimap
 	int x  = MINIMAP_WIDTH / cube->map_s.map_width;
+	cube->map_s.mini_cub_w = x;
 	printf("x%d = WIDTH:%d / %d\n", x ,MINIMAP_WIDTH, cube->map_s.map_width);
 	int y = MINIMAP_HEIGHT / cube->map_s.map_height;
+	cube->map_s.mini_cub_h = y;
 	printf("y%d = HEIGHT:%d / %d\n", y, MINIMAP_HEIGHT, cube->map_s.map_height);
 	k = 0;
 	j = 0;
@@ -92,7 +86,7 @@ void	draw_img(t_cube *cube)
 	while (k != MINIMAP_HEIGHT)
 	{
 		i = -1;
-		while (i++ < MINIMAP_WIDTH)
+		while (++i < MINIMAP_WIDTH)
 			cube->map_s.addr[MINIMAP_WIDTH * k + i] = rgb_to_hex(255, 0, 0, 0);
 		k++;
 	}
@@ -101,9 +95,9 @@ void	draw_img(t_cube *cube)
 	int c = 0;
 	int d = 0;
 	int l = 0;
-	while (k != MINIMAP_HEIGHT)
+	while (l < MINIMAP_HEIGHT)
 	{
-		while (i < MINIMAP_WIDTH)
+		while (d < cube->map_s.map_width)
 		{
 			if (cube->map[c] == NULL)
 				break;
@@ -119,7 +113,9 @@ void	draw_img(t_cube *cube)
 			{
 				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(0,255,255,255));
 			}
+			//cube->map_s.addr[k * MINIMAP_WIDTH + i] = rgb_to_hex(0, 0, 0, 255);
 			i += x;
+			//i++;
 			d++;
 		}
 		d = 0;

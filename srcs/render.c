@@ -7,15 +7,6 @@ unsigned long	rgb_to_hex(int transparent ,int r, int g, int b)//0x_00_00_ff
 
 void render(t_cube *cube)
 {
-	int k = 0;
-	int i;
-	while (k != MINIMAP_HEIGHT)
-	{
-		i = -1;
-		while (i++ != MINIMAP_WIDTH)
-			cube->map_s.addr[MINIMAP_WIDTH * k + i] = rgb_to_hex(255, 0,0,0);
-		k++;
-	}
 	draw_win(cube);
 	draw_img(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->win_img_ptr, 0, 0);

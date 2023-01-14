@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: osarihan <osarihan@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/01/11 17:00:51 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/01/13 13:51:45 by osarihan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,19 @@ void	take_map(t_cube *cube)
 
 	i = 0;
 	j = 0;
-	while (cube->map_file[0][0] != '1' && cube->map_file[0][0] != '0')
+	while (cube->map_file[i][0] != '1' && cube->map_file[i][0] != '0')
 		i++;
 	cube->map = malloc(sizeof(char **) * 10000);
 	while (cube->map_file[i])
 	{
 		cube->map[j] = ft_strdup(cube->map_file[i]);
 		j++;
+		i++;
+	}
+	i = 0;
+	while(cube->map[i] != NULL)
+	{
+		ft_putstr_fd(cube->map[i], 1);
 		i++;
 	}
 }
@@ -65,6 +71,7 @@ int	map_init(char **av, t_cube *cube)
 		i++;
 	}
 	take_map(cube);
+	
 	return (1);
 }
 

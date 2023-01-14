@@ -1,8 +1,8 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 1000
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define MINIMAP_WIDTH	WINDOW_WIDTH / 4
 # define MINIMAP_HEIGHT	WINDOW_HEIGHT / 4
 # define RED_PIXEL 0xFF0000
@@ -26,6 +26,8 @@ typedef struct s_map
 	int		map_height;
 	void	*img_ptr;
 	int		*addr;
+	int		mini_cub_h;
+	int		mini_cub_w;
 } t_map;
 
 
