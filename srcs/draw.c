@@ -34,19 +34,19 @@ void ft_draw_small_square2(t_cube *cube, int x, int y, int a, int z, int color)
 	temp = a;
 	if (temp + x <= MINIMAP_WIDTH)
 		x = temp + x;
+	else
+		return;
 	if (z + y <= MINIMAP_HEIGHT)
 		y = z + y;
+	else
+		return;
 	i = 0;
 	while (z < y)
 	{
 		while (temp <= x)
 		{
-			// if (tempz == z)
-			// 	cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
 			if (temp != x)
 				cube->map_s.addr[z * MINIMAP_WIDTH + temp] = color;
-			// else
-			// 	cube->map_s.addr[z * MINIMAP_WIDTH + temp] = rgb_to_hex(0, 255, 0, 255);
 			temp++;
 		}
 		temp = a;
@@ -103,7 +103,7 @@ void	draw_img(t_cube *cube)
 				break;
 			if (cube->map[c][d] == '1')
 			{
-				ft_draw_small_square2(cube, x, y, i, l, GREEN_PIXEL);
+				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(0,0,0,0));
 			}
 			else if (cube->map[c][d] == '0')
 			{
@@ -111,7 +111,7 @@ void	draw_img(t_cube *cube)
 			}
 			else if (cube->map[c][d] != '\n' && cube->map[c][d] != '\0')
 			{
-				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(0,255,255,255));
+				ft_draw_small_square2(cube, x, y, i, l, rgb_to_hex(255,255,255,255));
 			}
 			//cube->map_s.addr[k * MINIMAP_WIDTH + i] = rgb_to_hex(0, 0, 0, 255);
 			i += x;
