@@ -8,6 +8,12 @@
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 
+# define ESC 53
+# define W	 13
+# define A	 0
+# define S	 1
+# define D	 2
+
 #include "../libft/libft.h"
 #include "../minilibx/mlx.h"
 #include <math.h>
@@ -25,7 +31,9 @@ typedef struct s_map
 	int		map_width;
 	int		map_height;
 	void	*img_ptr;
+	void	*img_ptr_player;
 	int		*addr;
+	int		*player_addr;
 	int		mini_cub_h;
 	int		mini_cub_w;
 } t_map;
@@ -41,6 +49,8 @@ typedef struct s_cube
 	int		*win_addr;
 	void	*win_img_ptr;
 	t_map	map_s;
+	int i;
+	int y;
 } t_cube;
 
 
@@ -57,6 +67,10 @@ void	init_img(t_cube *cube);
 
 void	draw_win(t_cube *cube);
 void	draw_img(t_cube *cube);
+void	draw_minimap(t_cube *cube);
+void	draw_player(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
+
+void	handle_keypress(int keysym, t_cube *cube);
 
 #endif

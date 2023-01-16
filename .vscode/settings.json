@@ -4,6 +4,7 @@
 		"libft.h": "c",
 		"mlx.h": "c",
 		"ios": "c",
-		"cub3d.h": "c"
+		"cub3d.h": "c",
+		"chrono": "c"
 	}
 }

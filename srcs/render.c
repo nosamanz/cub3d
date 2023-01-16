@@ -11,5 +11,5 @@ void render(t_cube *cube)
 	draw_img(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->win_img_ptr, 0, 0);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->map_s.img_ptr, 0, 0);
-	mlx_loop(cube->mlx);
+	//mlx_put_image_to_window(cube->mlx, cube->win, cube->map_s.img_ptr_player, 0, 0);
 }

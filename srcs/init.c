@@ -26,4 +26,7 @@ void	init_img(t_cube *cube)
 
 	cube->map_s.img_ptr = mlx_new_image(cube->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	cube->map_s.addr = (int *)mlx_get_data_addr(cube->map_s.img_ptr, &x, &y, &z);
+
+	//cube->map_s.img_ptr_player = mlx_new_image(cube->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	//cube->map_s.player_addr = (int *)mlx_get_data_addr(cube->map_s.img_ptr_player, &x, &y, &z);
 }
