@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:40:43 by osarihan          #+#    #+#             */
-/*   Updated: 2023/01/24 19:04:17 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/01/24 20:38:51 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main(int ac, char **av)
 		// mlx_hook(cube.win, 2, 1L << 0, &handle_keypress, &cube);
 		// mlx_hook(cube.win, 3, 1L << 1, &handle_keypress2, &cube);
 		cube.player_angle = 90.0;
+		cube.angle = 0;
 		cube.w = false;
 		cube.a = false;
 		cube.s = false;

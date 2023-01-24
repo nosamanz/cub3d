@@ -53,6 +53,15 @@ void move(t_cube *cube)
 			cube->y = y;
 		}
 	}
+	if (cube->ra)
+	{
+		cube->player_angle++;
+	}
+	if (cube->la)
+	{
+		cube->player_angle--;
+	}
+	printf("player angle:%f\n", cube->player_angle);
 }
 
 int key_press(int key, t_cube *cube)
@@ -65,6 +74,10 @@ int key_press(int key, t_cube *cube)
 		cube->d = true;
 	if (key == A)
 		cube->a = true;
+	if (key == RA)
+		cube->ra = true;
+	if (key == LA)
+		cube->la = true;
 	return (1);
 }
 
@@ -78,6 +91,10 @@ int key_release(int key, t_cube *cube)
 		cube->d = false;
 	if (key == A)
 		cube->a = false;
+	if (key == RA)
+		cube->ra = false;
+	if (key == LA)
+		cube->la = false;
 	return (1);
 }
 

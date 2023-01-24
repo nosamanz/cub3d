@@ -28,4 +28,5 @@ void	draw_img(t_cube *cube)
 	//minimap
 	draw_minimap(cube);
 	draw_player(cube);
+	draw_ray(cube);
 }

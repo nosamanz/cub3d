@@ -13,6 +13,8 @@
 # define A	 0
 # define S	 1
 # define D	 2
+# define RA	 123
+# define LA	 124
 
 #include "../libft/libft.h"
 #include "../minilibx/mlx.h"
@@ -60,9 +62,13 @@ typedef struct s_cube
 	bool a;
 	bool w;
 	bool s;
+	bool ra;
+	bool la;
 	double player_x;
 	double player_y;
 	double player_angle;
+
+	int angle;
 } t_cube;
 
 int	key_press(int key, t_cube *cube);
@@ -83,6 +89,7 @@ void	draw_win(t_cube *cube);
 void	draw_img(t_cube *cube);
 void	draw_minimap(t_cube *cube);
 void	draw_player(t_cube *cube);
+void	draw_ray(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
 
 //void	handle_keypress(t_cube *cube);

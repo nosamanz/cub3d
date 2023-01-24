@@ -143,19 +143,54 @@ void	draw_player(t_cube *cube)
 {
 	int k = 0;
 	int l = 0;
-	int	i = 0;
 
-	k = 0;
-	i = 0;
-	l = 0;
 	while (k < cube->map_s.mini_cub_h)
 	{
-		i = -1;
 		while (l++ < cube->map_s.mini_cub_w)
 		{
-			cube->map_s.addr[MINIMAP_WIDTH * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(200, 255, 0, 255);
+			cube->map_s.addr[MINIMAP_WIDTH * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(200, 0, 0, 255);
 		}
 		l = 0;
 		k++;
 	}
+
+}
+
+void draw_ray(t_cube *cube)
+{
+	int k = 0;
+	int l = 0;
+	int i = 0;
+	int tmp = cube->map_s.map_height - (cube->y / cube->map_s.mini_cub_h);
+	printf("%d\n", tmp);
+
+	int x = cube->x;
+	int y = cube->y;
+	// while (1)
+	// {
+	// 	cube->map_s.addr[y * MINIMAP_WIDTH + x - (MINIMAP_WIDTH * i)] = rgb_to_hex(200, 0, 0, 255);
+	// }
+	k = cube->y;
+	while (1)
+	{
+		if (cube->map[k / cube->map_s.mini_cub_h][x / cube->map_s.mini_cub_w] == '1')
+			break;
+		while (k > 0)
+		{
+			if (cube->map[k / cube->map_s.mini_cub_h][x / cube->map_s.mini_cub_w] == '1')
+				break;
+			cube->map_s.addr[MINIMAP_WIDTH * k + (x + cube->map_s.mini_cub_w / 2)] = rgb_to_hex(200, 0, 0, 255);
+			k--;
+		}
+	}
+	// while (k < cube->map_s.mini_cub_h)
+	// {
+	// 	i = -1;
+	// 	while (l++ < cube->map_s.mini_cub_w)
+	// 	{
+	// 		cube->map_s.addr[MINIMAP_WIDTH * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(200, 0, 0, 255);
+	// 	}
+	// 	l = 0;
+	// 	k++;
+	// }
 }
