@@ -67,12 +67,10 @@ void	draw_minimap(t_cube *cube)
 	int	i;
 	int	k;
 	int j;
-	int x  = MINIMAP_WIDTH / cube->map_s.map_width;
-	cube->map_s.mini_cub_w = x;
-	//printf("x%d = WIDTH:%d / %d\n", x ,MINIMAP_WIDTH, cube->map_s.map_width);
-	int y = MINIMAP_HEIGHT / cube->map_s.map_height;
-	cube->map_s.mini_cub_h = y;
-	//printf("y%d = HEIGHT:%d / %d\n", y, MINIMAP_HEIGHT, cube->map_s.map_height);
+
+	int x  = cube->map_s.mini_cub_w;
+	int y = cube->map_s.mini_cub_h;
+
 	k = 0;
 	j = 0;
 	i = 0;
@@ -106,9 +104,7 @@ void	draw_minimap(t_cube *cube)
 			{
 				ft_draw_small_square(cube, x, y, i, l, rgb_to_hex(0,255,255,255));
 			}
-			//cube->map_s.addr[k * MINIMAP_WIDTH + i] = rgb_to_hex(0, 0, 0, 255);
 			i += x;
-			//i++;
 			d++;
 		}
 		d = 0;
@@ -117,26 +113,28 @@ void	draw_minimap(t_cube *cube)
 		c++;
 		k++;
 	}
-
+	// int m = 0;
 	// while (cube->map[c])
 	// {
 	// 	while (cube->map[c][d])
 	// 	{
-	// 		k = 0;
 	// 		if (cube->map[c][d] == '1')
 	// 		{
+	// 			printf("duvar %d\n", c);
 	// 			while (k != cube->map_s.mini_cub_h)
 	// 			{
-	// 				i = -1;
-	// 				while (i < cube->map_s.mini_cub_w)
+	// 				while (l != cube->map_s.mini_cub_w)
 	// 				{
-	// 					cube->map_s.addr[MINIMAP_WIDTH * k + i] = rgb_to_hex(0,255,255,255);
+	// 					cube->map_s.addr[MINIMAP_WIDTH * (c * cube->map_s.mini_cub_h + k) + l] = rgb_to_hex(0,0,0,0);
+	// 					l++;
 	// 				}
-	// 				//k += cube->map_s.mini_cub_h;
+	// 				l = 0;
 	// 				k++;
 	// 			}
 	// 		}
+	// 		d++;
 	// 	}
+	// 	d = 0;
 	// 	c++;
 	// }
 }
@@ -150,12 +148,12 @@ void	draw_player(t_cube *cube)
 	k = 0;
 	i = 0;
 	l = 0;
-	while (k < cube->map_s.mini_cub_h / 2)
+	while (k < cube->map_s.mini_cub_h)
 	{
 		i = -1;
-		while (l++ < cube->map_s.mini_cub_w / 2)
+		while (l++ < cube->map_s.mini_cub_w)
 		{
-			cube->map_s.addr[MINIMAP_WIDTH * (k + cube->y) + cube->i + l] = rgb_to_hex(0, 255, 0, 255);
+			cube->map_s.addr[MINIMAP_WIDTH * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(200, 255, 0, 255);
 		}
 		l = 0;
 		k++;

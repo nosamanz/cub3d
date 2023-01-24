@@ -1,0 +1,72 @@
+	if (keysym == D && cube->x < MINIMAP_WIDTH)
+	{
+		cube->x += cube->map_s.p_movement_mm;
+		cube->d += cube->map_s.p_movement_mm;
+		if (cube->d >= cube->map_s.mini_cub_w)
+		{
+			if (cube->map[cube->m_i + 1][cube->y] == '1')
+			{
+				cube->x -= cube->map_s.p_movement_mm;
+				return;
+			}
+			else
+			{
+				cube->m_i++;
+			}
+			cube->d = 0;
+		}
+		//printf("A:%d\n", cube->d);
+	}
+
+
+		// if (keysym == D)
+	// {
+	// 	printf("               map sagi:%c\n",cube->map[cube->m_i][cube->m_j + 1]);
+	// 	printf("               cube->d:%d\n", cube->d);
+	// 	if (cube->d >= cube->map_s.mini_cub_w)
+	// 	{
+	// 		if (cube->map[cube->m_i][cube->m_j + 1] != '1')
+	// 		{
+	// 			printf("sa\n");
+	// 			cube->m_j++;
+	// 		}
+	// 		else
+	// 			return ;
+	// 		cube->d = 0;
+	// 	}
+	// 	cube->x += cube->map_s.p_movement_mm;
+	// 	cube->d += cube->map_s.p_movement_mm;
+	// }
+	// else if (keysym == A)
+	// {
+	// 	printf("map solu:%c\n",cube->map[cube->m_i][cube->m_j - 1]);
+	// 	if (cube->a >= cube->map_s.mini_cub_w)
+	// 	{
+	// 		if (cube->map[cube->m_i][cube->m_j - 1] != '1')
+	// 		{
+	// 			printf("%c\n", cube->map[cube->m_i][cube->m_j]);
+	// 			printf("m_j azaldi\n");
+	// 			cube->m_j--;
+	// 		}
+	// 		else
+	// 			return ;
+	// 		cube->a = 0;
+	// 	}
+	// 	cube->a += cube->map_s.p_movement_mm;
+	// 	cube->x -= cube->map_s.p_movement_mm;
+	// }
+	// else if (keysym == S)
+	// {
+	// 	cube->s += cube->map_s.p_movement_mm;
+	// 	if (cube->s >= cube->map_s.mini_cub_h)
+	// 	{
+	// 		if (cube->map[cube->m_i + 1][cube->m_j] != '1')
+	// 			cube->m_i++;
+	// 		else
+	// 			return ;
+	// 		cube->s = 0;
+	// 	}
+	// 	cube->y += cube->map_s.p_movement_mm;
+	// }
+	// else if (keysym == W && cube->y - 1 > 0)
+	// 	cube->y -= cube->map_s.p_movement_mm;

@@ -6,11 +6,37 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/01/15 15:38:03 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/01/24 16:14:45 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	find_player(t_cube *cube)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (cube->map[i])
+	{
+		while (cube->map[i][j])
+		{
+			if (cube->map[i][j] == 'P')
+			{
+				cube->player_x = j;
+				cube->player_y = i;
+				printf("%f %f\n", cube->player_x, cube->player_y);
+				cube->map[i][j] = '0';
+				return ;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
 
 void	take_map(t_cube *cube)
 {
@@ -31,12 +57,12 @@ void	take_map(t_cube *cube)
 		i++;
 	}
 	i = 0;
-	while(cube->map[i] != NULL)
-	{
-		ft_putstr_fd("MAP", 1);
-		ft_putstr_fd(cube->map[i], 1);
-		i++;
-	}
+	// while(cube->map[i] != NULL)
+	// {
+	// 	ft_putstr_fd("MAP", 1);
+	// 	ft_putstr_fd(cube->map[i], 1);
+	// 	i++;
+	// }
 }
 
 int	name_chck(char **av)
@@ -71,6 +97,7 @@ int	map_init(char **av, t_cube *cube)
 		i++;
 	}
 	take_map(cube);
+	find_player(cube);
 	return (1);
 }
 

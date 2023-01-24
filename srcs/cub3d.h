@@ -18,6 +18,7 @@
 #include "../minilibx/mlx.h"
 #include <math.h>
 #include <fcntl.h>
+#include <stdbool.h>
 
 // typedef struct s_mlx
 // {
@@ -36,6 +37,7 @@ typedef struct s_map
 	int		*player_addr;
 	int		mini_cub_h;
 	int		mini_cub_w;
+	int		p_movement_mm;
 } t_map;
 
 
@@ -49,17 +51,29 @@ typedef struct s_cube
 	int		*win_addr;
 	void	*win_img_ptr;
 	t_map	map_s;
-	int i;
-	int y;
+	double y;
+	double x;
+	int m_i;
+	int m_j;
+	bool d;
+
+	bool a;
+	bool w;
+	bool s;
+	double player_x;
+	double player_y;
+	double player_angle;
 } t_cube;
 
+int	key_press(int key, t_cube *cube);
+int	key_release(int key, t_cube *cube);
 
 int		name_chck(char **av);
 int		map_init(char **av, t_cube *cube);
 void	check_map_size(t_cube *cube);
 void	fill_map_spaces(t_cube *cube);
 //////////render//////////
-void	render(t_cube *cube);
+int	render(t_cube *cube);
 
 void	init(t_cube *cube);
 void	init_win(t_cube *cube);
@@ -71,6 +85,8 @@ void	draw_minimap(t_cube *cube);
 void	draw_player(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
 
-void	handle_keypress(int keysym, t_cube *cube);
+//void	handle_keypress(t_cube *cube);
+void	handle_keypress(t_cube *cube);
+//void	handle_esc(t_cube *cube);
 
 #endif
