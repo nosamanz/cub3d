@@ -17,7 +17,7 @@ void move(t_cube *cube)
 	{
 		x += cos(cube->player_angle * (M_PI / 180.0));
 		y += sin(cube->player_angle * (M_PI / 180.0) * -1);
-		if (!is_wall(x , y + cube->map_s.mini_cub_h / 2, cube))
+		if (!is_wall(x , y + cube->map_s.mini_cub_h, cube))
 		{
 			cube->x = x;
 			cube->y = y;
@@ -27,7 +27,7 @@ void move(t_cube *cube)
 	{
 		x += cos(cube->player_angle * (M_PI / 180.0));
 		y += sin(cube->player_angle * (M_PI / 180.0));
-		if (!is_wall(x + cube->map_s.mini_cub_w , y + cube->map_s.mini_cub_h / 2, cube))
+		if (!is_wall(x + cube->map_s.mini_cub_w , y + cube->map_s.mini_cub_h, cube))
 		{
 			cube->x = x;
 			cube->y = y;
@@ -37,7 +37,7 @@ void move(t_cube *cube)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0) * -1);
 		y += cos(cube->player_angle * (M_PI / 180.0));
-		if (!is_wall(x + cube->map_s.mini_cub_w / 2 , y, cube))
+		if (!is_wall(x + cube->map_s.mini_cub_w , y, cube))
 		{
 			cube->x = x;
 			cube->y = y;
@@ -47,7 +47,7 @@ void move(t_cube *cube)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0));
 		y += cos(cube->player_angle * (M_PI / 180.0));
-		if (!is_wall(x + cube->map_s.mini_cub_w / 2 , y, cube))
+		if (!is_wall(x + cube->map_s.mini_cub_w , y, cube))
 		{
 			cube->x = x;
 			cube->y = y;

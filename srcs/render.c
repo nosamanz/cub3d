@@ -5,7 +5,7 @@ unsigned long	rgb_to_hex(int transparent ,int r, int g, int b)//0x_00_00_ff
 	return ((transparent << 24)+(r << 16) + (g << 8) + (b));
 }
 
-int render(t_cube *cube)
+int 	render(t_cube *cube)
 {
 	handle_keypress(cube);
 	draw_win(cube);

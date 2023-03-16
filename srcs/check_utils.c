@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/01/24 16:14:45 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/03/16 17:57:01 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	take_map(t_cube *cube)
 		i++;
 	}
 	i = 0;
-	// while(cube->map[i] != NULL)
+	// while(cube->map_s[i] != NULL)
 	// {
 	// 	ft_putstr_fd("MAP", 1);
-	// 	ft_putstr_fd(cube->map[i], 1);
+	// 	ft_putstr_fd(cube->map_s[i], 1);
 	// 	i++;
 	// }
 }

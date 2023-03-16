@@ -4,7 +4,7 @@
 		cube->d += cube->map_s.p_movement_mm;
 		if (cube->d >= cube->map_s.mini_cub_w)
 		{
-			if (cube->map[cube->m_i + 1][cube->y] == '1')
+			if (cube->map_s[cube->m_i + 1][cube->y] == '1')
 			{
 				cube->x -= cube->map_s.p_movement_mm;
 				return;
@@ -21,11 +21,11 @@
 
 		// if (keysym == D)
 	// {
-	// 	printf("               map sagi:%c\n",cube->map[cube->m_i][cube->m_j + 1]);
+	// 	printf("               map sagi:%c\n",cube->map_s[cube->m_i][cube->m_j + 1]);
 	// 	printf("               cube->d:%d\n", cube->d);
 	// 	if (cube->d >= cube->map_s.mini_cub_w)
 	// 	{
-	// 		if (cube->map[cube->m_i][cube->m_j + 1] != '1')
+	// 		if (cube->map_s[cube->m_i][cube->m_j + 1] != '1')
 	// 		{
 	// 			printf("sa\n");
 	// 			cube->m_j++;
@@ -39,12 +39,12 @@
 	// }
 	// else if (keysym == A)
 	// {
-	// 	printf("map solu:%c\n",cube->map[cube->m_i][cube->m_j - 1]);
+	// 	printf("map solu:%c\n",cube->map_s[cube->m_i][cube->m_j - 1]);
 	// 	if (cube->a >= cube->map_s.mini_cub_w)
 	// 	{
-	// 		if (cube->map[cube->m_i][cube->m_j - 1] != '1')
+	// 		if (cube->map_s[cube->m_i][cube->m_j - 1] != '1')
 	// 		{
-	// 			printf("%c\n", cube->map[cube->m_i][cube->m_j]);
+	// 			printf("%c\n", cube->map_s[cube->m_i][cube->m_j]);
 	// 			printf("m_j azaldi\n");
 	// 			cube->m_j--;
 	// 		}
@@ -60,7 +60,7 @@
 	// 	cube->s += cube->map_s.p_movement_mm;
 	// 	if (cube->s >= cube->map_s.mini_cub_h)
 	// 	{
-	// 		if (cube->map[cube->m_i + 1][cube->m_j] != '1')
+	// 		if (cube->map_s[cube->m_i + 1][cube->m_j] != '1')
 	// 			cube->m_i++;
 	// 		else
 	// 			return ;

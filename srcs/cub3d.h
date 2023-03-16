@@ -1,10 +1,9 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
-# define MINIMAP_WIDTH	WINDOW_WIDTH / 4
-# define MINIMAP_HEIGHT	WINDOW_HEIGHT / 4
+#define CUBE_H 8
+#define CUBE_W 8
+
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 
@@ -45,6 +44,8 @@ typedef struct s_map
 
 typedef struct s_cube
 {
+	int		win_width;
+	int		win_height;
 	char	**map_file;
 	char	**map;
 	int		count;
