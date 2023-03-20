@@ -6,14 +6,8 @@ void ft_draw_small_square(t_cube *cube, int y, int w, int h, int color)
 	int i;
 	int temp = 0;
 	i = 0;
-//	temp = w;
 	int temp2 = 0;
 
-	//temp2 = h + 8;
-	//if (temp2 > cube->map_s.map_height)
-	//	return;
-	//printf("H: %d\n", h);
-	//printf("temp: %d\n", temp2);
 	while (temp2 < 8)
 	{
 		while (temp < 8)
@@ -54,15 +48,17 @@ void draw_minimap(t_cube *cube)
 	i = 0;
 	j = 0;
 
+
 	while (cube->map[i])
 	{
 		while (cube->map[i][j])
 		{
-			if (cube->map[i][j] == '1')
-			{
-				// ft_draw_small_square(cube, CUBE_H, k, l, rgb_to_hex(0, 255, 0, 0));
-				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(0, 255, 0, 0));
-			}
+			if (cube->map[i][j] == '0')
+				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(0, 255, 255, 255));
+			else if (cube->map[i][j] == '1')
+				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(0, 255, 0, 255));
+			else
+				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(0, 255, 255, 0));
 			// k += CUBE_W;
 			j++;
 		}
@@ -93,43 +89,48 @@ void	draw_player(t_cube *cube)
 	int l = 0;
 
 	printf("cube->x:%f cube->y %f\n", cube->x, cube->y);
-	while (k < 4)
+	while (k < CUBE_H - 1)
 	{
 		l = -1;
-		while (++l < 4)
+		while (++l < CUBE_W - 1)
 		{
-			cube->map_s.addr[cube->map_s.map_width * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(200, 0, 0, 255);
+			cube->map_s.addr[cube->map_s.map_width * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(125, 0, 0, 255);
 		}
 		k++;
 	}
 
 }
 
-// void draw_ray(t_cube *cube)
-// {
-// 	int k = 0;
-// 	int l = 0;
-// 	int i = 0;
-// 	int tmp = cube->map_s.map_height - (cube->y / cube->map_s.mini_cub_h);
-// 	printf("%d\n", tmp);
+void draw_ray(t_cube *cube)
+{
+	int k = 0;
+	int i = 0;
 
-// 	int x = cube->x;
-// 	int y = cube->y;
-// 	// while (1)
-// 	// {
-// 	// 	cube->map_s.addr[y * MINIMAP_WIDTH + x - (MINIMAP_WIDTH * i)] = rgb_to_hex(200, 0, 0, 255);
-// 	// }
-// 	k = cube->y;
-// 	while (1)
-// 	{
-// 		if (cube->map_s[k / cube->map_s.mini_cub_h][x / cube->map_s.mini_cub_w] == '1')
-// 			break;
-// 		while (k > 0)
-// 		{
-// 			if (cube->map_s[k / cube->map_s.mini_cub_h][x / cube->map_s.mini_cub_w] == '1')
-// 				break;
-// 			cube->map_s.addr[cube->map_s.mini_cub_w * k + (x + cube->map_s.mini_cub_w / 2)] = rgb_to_hex(200, 0, 0, 255);
-// 			k--;
-// 		}
-// 	}
-// }
+	double x = cube->x + (CUBE_W / 2) - 1;
+	double y = cube->y;
+
+	double ray_x = cos(cube->player_angle);
+	double ray_y = sin(cube->player_angle);
+
+
+	// k = cube->y;
+	while (1)
+	{
+		// if (x < 0 || x >= cube->map_s.map_width || y < 0 || y >= cube->map_s.map_height)
+		// 	break;
+		// if (cube->map[k / 8][x / 8] == '1')
+		// 	break;
+		// while (k < cube->map_s.map_height)
+		// {
+		// 	if (cube->map[k / 8][x / 8] == '1')
+		// 		break;
+		// 	cube->map_s.addr[cube->map_s.map_width * k + x] = rgb_to_hex(0, 0, 0, 0);
+		// 	k--;
+		// }
+		x += ray_x;
+		y += ray_y;
+		if (cube->map[(int)(y / 8)][(int)(x / 8)] == '1')
+			break;
+		cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 0, 0);
+	}
+}

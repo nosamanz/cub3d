@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:40:43 by osarihan          #+#    #+#             */
-/*   Updated: 2023/03/16 15:06:29 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/03/20 18:13:10 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int main(int ac, char **av)
 		cube.d = false;
 
 		mlx_hook(cube.win, 3, 1L<<1, &key_release, &cube);
-		mlx_hook(cube.win, 2, 1L<<0, &key_press, &cube);
 		mlx_hook(cube.win, 2, 1L<<0, &key_press, &cube);
 		mlx_hook(cube.win, 17, (0L), ft_close, main);
 		mlx_loop_hook(cube.mlx, &render, &cube);

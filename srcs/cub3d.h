@@ -38,7 +38,7 @@ typedef struct s_map
 	int		*player_addr;
 	int		mini_cub_h;
 	int		mini_cub_w;
-	int		p_movement_mm;
+	double		p_movement_mm;
 } t_map;
 
 
@@ -48,6 +48,7 @@ typedef struct s_cube
 	int		win_height;
 	char	**map_file;
 	char	**map;
+	int		map_long;
 	int		count;
 	void	*mlx;
 	void	*win;

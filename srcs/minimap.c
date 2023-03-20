@@ -17,13 +17,35 @@ void	fill_map_spaces(t_cube *cube)
 			index = ft_strlen(cube->map[i]);
 			ft_strlcpy(new_str, cube->map[i], ft_strlen(cube->map[i]));
 			index--;
-			while (index <= cube->map_s.map_width)
-				new_str[index++] = 32;
+			while (index < cube->map_long - 1)
+				new_str[index++] = 'G';
 			new_str[index] = '\0';
 			cube->map[i] = ft_strdup(new_str);
 		}
 		i++;
 	}
+	i = 0;
+	j = 0;
+	while (cube->map[i])
+	{
+		while (cube->map[i][j] != '\0')
+		{
+			if (cube->map[i][j] != '1' && cube->map[i][j] != '0')
+				cube->map[i][j] = 'G';
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	i = 0;
+	j = 0;
+	printf("geldi\n");
+	while (cube->map[i])
+	{
+		printf("%s\n", cube->map[i]);
+		i++;
+	}
+	// pause();
 }
 
 void	check_map_size(t_cube *cube)
@@ -42,9 +64,11 @@ void	check_map_size(t_cube *cube)
 		i++;
 	}
 
+	cube->map_long = longest;
+
 	cube->win_height = i * (CUBE_H * 4);
 	printf("wh: %d\n", cube->win_height);
-	cube->win_width = (longest - 1) * (CUBE_W * 4);
+	cube->win_width = (longest) * (CUBE_W * 4);
 	printf("ww: %d\n", cube->win_width);
 
 	cube->map_s.map_height = i * CUBE_H;
@@ -53,14 +77,9 @@ void	check_map_size(t_cube *cube)
 	cube->map_s.map_width = (longest - 1) * CUBE_W;
 	printf("mw: %d\n", cube->map_s.map_width);
 
-	cube->map_s.p_movement_mm = 2;
-
-	cube->m_i = cube->player_y;
-	cube->m_j = cube->player_x;
-
 	cube->map_s.mini_cub_h = CUBE_H;
 	cube->map_s.mini_cub_w = CUBE_W;
-	
+
 	cube->x = cube->player_x * CUBE_W;
 	cube->y = cube->player_y * CUBE_H;
 
