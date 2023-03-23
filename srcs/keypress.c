@@ -4,10 +4,6 @@ int	is_wall(unsigned int x, unsigned int y, t_cube *cube)
 {
 	if (cube->map[y / CUBE_H][x / CUBE_W] == '1')
 		return (1);
-	// if (cube->map[(int)cube->y / CUBE_H][x / CUBE_W] == '1')
-	// 	return (1);
-	// if (cube->map[y / CUBE_H][(int)cube->x / CUBE_W] == '1')
-	// 	return (1);
 	return (0);
 }
 
@@ -19,55 +15,52 @@ void move(t_cube *cube)
 	{
 		x += cos(cube->player_angle * (M_PI / 180.0));
 		y += sin(cube->player_angle * (M_PI / 180.0) * -1);
-		// x = cube->x + 0.3 * cos(cube->player_angle);
 
-		// y = cube->y - 1 * sin(cube->player_angle);
-
-		if (!is_wall(x, y,cube))
-		{
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
 			cube->x = x;
+		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
 			cube->y = y;
-		}
 	}
-	else if (cube->s)
+	if (cube->s)
 	{
-		x += cos(cube->player_angle * (M_PI / 180.0));
+		x += cos(cube->player_angle * (M_PI / 180.0)) * -1;
 		y += sin(cube->player_angle * (M_PI / 180.0));
-		// y = cube->y + 1 * sin(cube->player_angle);
-		if (!is_wall(x , y + CUBE_H - 1, cube))
-		{
+
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
 			cube->x = x;
+		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
 			cube->y = y;
-		}
 	}
-	else if (cube->a)
+	if (cube->a)
 	{
-		x += sin(cube->player_angle * (M_PI / 180.0) * -1);
-		// x = cube->x - 1 * sin(cube->player_angle);
-		if (!is_wall(x, y, cube))
-		{
+		x += sin(cube->player_angle * (M_PI / 180.0)) * -1;
+		y += cos(cube->player_angle * (M_PI / 180.0)) * -1;
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
 			cube->x = x;
+		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
 			cube->y = y;
-		}
 	}
-	else if (cube->d)
+	if (cube->d)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0));
 		y += cos(cube->player_angle * (M_PI / 180.0));
-		// x = cube->x + 1 * sin(cube->player_angle);
-		if (!is_wall(x + CUBE_W - 1, y, cube))
-		{
+
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
 			cube->x = x;
+		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
 			cube->y = y;
-		}
 	}
 	if (cube->ra)
 	{
-		cube->player_angle++;
+		cube->player_angle -= AN;
+		if (cube->player_angle < 0)
+			cube->player_angle = 360;
 	}
 	if (cube->la)
 	{
-		cube->player_angle--;
+		cube->player_angle += AN;
+		if (cube->player_angle >= 360)
+			cube->player_angle = 0;
 	}
 	printf("player angle:%f\n", cube->player_angle);
 }

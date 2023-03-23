@@ -12,8 +12,10 @@
 # define A	 0
 # define S	 1
 # define D	 2
-# define RA	 123
-# define LA	 124
+# define LA	 123
+# define RA	 124
+
+# define AN 5
 
 #include "../libft/libft.h"
 #include "../minilibx/mlx.h"

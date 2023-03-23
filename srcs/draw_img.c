@@ -101,36 +101,25 @@ void	draw_player(t_cube *cube)
 
 }
 
-void draw_ray(t_cube *cube)
-{
-	int k = 0;
-	int i = 0;
-
-	double x = cube->x + (CUBE_W / 2) - 1;
-	double y = cube->y;
-
-	double ray_x = cos(cube->player_angle);
-	double ray_y = sin(cube->player_angle);
-
-
-	// k = cube->y;
-	while (1)
+	void draw_ray(t_cube *cube)
 	{
-		// if (x < 0 || x >= cube->map_s.map_width || y < 0 || y >= cube->map_s.map_height)
-		// 	break;
-		// if (cube->map[k / 8][x / 8] == '1')
-		// 	break;
-		// while (k < cube->map_s.map_height)
-		// {
-		// 	if (cube->map[k / 8][x / 8] == '1')
-		// 		break;
-		// 	cube->map_s.addr[cube->map_s.map_width * k + x] = rgb_to_hex(0, 0, 0, 0);
-		// 	k--;
-		// }
-		x += ray_x;
-		y += ray_y;
-		if (cube->map[(int)(y / 8)][(int)(x / 8)] == '1')
-			break;
-		cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 0, 0);
+		int k = 0;
+		int i = 0;
+
+		double x = cube->x + (CUBE_W / 2);
+		double y = cube->y + (CUBE_W / 2);
+
+
+		double ray_x = cos(cube->player_angle * (M_PI / 180.0));
+
+		double ray_y = sin(cube->player_angle * (M_PI / 180.0)) * -1;
+
+		while (1)
+		{
+			x += ray_x;
+			y += ray_y;
+			if (cube->map[(int)(y / 8)][(int)(x / 8)] == '1')
+				break;
+			cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 0, 0);
+		}
 	}
-}
