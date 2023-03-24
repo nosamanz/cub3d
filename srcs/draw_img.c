@@ -20,22 +20,6 @@ void ft_draw_small_square(t_cube *cube, int y, int w, int h, int color)
 	}
 }
 
-// void ft_pixel_put(t_cub3d *main, int x, int y, unsigned long color)
-// {
-//     int i;
-//     int k;
-//     i = -1;
-//     while (++i < main->mini_map->map_img_size_y)
-//     {
-//         k = -1;
-//         while (++k < main->mini_map->map_img_size_x)
-//         {
-//             main->mini_map_img_adress[(int)(MINI_MAP_WIDTH * (y + i) + (x + k))] = color;
-//         }
-//     }
-// }
-
-
 void draw_minimap(t_cube *cube)
 {
 	int	i;
@@ -58,7 +42,7 @@ void draw_minimap(t_cube *cube)
 			else if (cube->map[i][j] == '1')
 				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(0, 255, 0, 255));
 			else
-				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(0, 255, 255, 0));
+				ft_draw_small_square(cube, CUBE_H, j * CUBE_W, i * CUBE_H, rgb_to_hex(255, 0, 0, 0)); // map disi vb icin trans.
 			// k += CUBE_W;
 			j++;
 		}
@@ -66,20 +50,6 @@ void draw_minimap(t_cube *cube)
 		i++;
 		j = 0;
 	}
-
-
-
-	// bu doru
-	// int d;
-	// while (l < cube->map_s.map_height)
-	// {
-	// 	d = -1;
-	// 	while (++d <= cube->map_s.map_width)
-	// 	{
-	// 		cube->map_s.addr[cube->map_s.map_width * l + d] = rgb_to_hex(0, 0, 255, 0);
-	// 	}
-	// 	l++;
-	// }
 }
 
 
@@ -88,13 +58,15 @@ void	draw_player(t_cube *cube)
 	int k = 0;
 	int l = 0;
 
-	printf("cube->x:%f cube->y %f\n", cube->x, cube->y);
+	printf("cube->x:%0.2f cube->y %0.2f\n", cube->x, cube->y);
+	k = 0;
+	l = 0;
 	while (k < CUBE_H - 1)
 	{
 		l = -1;
 		while (++l < CUBE_W - 1)
 		{
-			cube->map_s.addr[cube->map_s.map_width * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(125, 0, 0, 255);
+			cube->map_s.addr[cube->map_s.map_width * (k + (int)cube->y) + (int)cube->x + l] = rgb_to_hex(255, 0, 255, 255);
 		}
 		k++;
 	}
@@ -120,6 +92,6 @@ void	draw_player(t_cube *cube)
 			y += ray_y;
 			if (cube->map[(int)(y / 8)][(int)(x / 8)] == '1')
 				break;
-			cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 0, 0);
+			cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 255, 0);
 		}
 	}

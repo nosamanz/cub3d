@@ -39,12 +39,13 @@ void	fill_map_spaces(t_cube *cube)
 	}
 	i = 0;
 	j = 0;
-	printf("geldi\n");
-	while (cube->map[i])
-	{
-		printf("%s\n", cube->map[i]);
-		i++;
-	}
+
+	//Map Cizme
+	// while (cube->map[i])
+	// {
+	// 	printf("%s\n", cube->map[i]);
+	// 	i++;
+	// }
 	// pause();
 }
 
@@ -64,7 +65,13 @@ void	check_map_size(t_cube *cube)
 		i++;
 	}
 
+	cube->map_height = i - 1;
 	cube->map_long = longest;
+	if (!map_check(cube))
+	{
+		ft_putstr_fd("Map Error !", 2);\
+		exit(0);
+	}
 
 	cube->win_height = i * (CUBE_H * 4);
 	printf("wh: %d\n", cube->win_height);

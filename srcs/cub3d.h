@@ -23,12 +23,6 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-// typedef struct s_mlx
-// {
-// 	void	*mlx;
-// 	void	*win;
-// 	void	*ptr_minimap_img;
-// } t_mlx;
 
 typedef struct s_map
 {
@@ -46,33 +40,33 @@ typedef struct s_map
 
 typedef struct s_cube
 {
+	t_map	map_s;
 	int		win_width;
 	int		win_height;
 	char	**map_file;
 	char	**map;
 	int		map_long;
-	int		count;
+	int		map_height;
 	void	*mlx;
 	void	*win;
 	int		*win_addr;
 	void	*win_img_ptr;
-	t_map	map_s;
 	double y;
 	double x;
-	int m_i;
-	int m_j;
-	bool d;
 
-	bool a;
 	bool w;
+	bool a;
 	bool s;
+	bool d;
 	bool ra;
 	bool la;
 	double player_x;
 	double player_y;
 	double player_angle;
 
-	int angle;
+	int f_color[3];
+	int c_color[3];
+
 } t_cube;
 
 int	key_press(int key, t_cube *cube);
@@ -80,6 +74,7 @@ int	key_release(int key, t_cube *cube);
 
 int		name_chck(char **av);
 int		map_init(char **av, t_cube *cube);
+int		map_check(t_cube *cube);
 void	check_map_size(t_cube *cube);
 void	fill_map_spaces(t_cube *cube);
 //////////render//////////
@@ -99,5 +94,6 @@ unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
 //void	handle_keypress(t_cube *cube);
 void	handle_keypress(t_cube *cube);
 //void	handle_esc(t_cube *cube);
+
 
 #endif

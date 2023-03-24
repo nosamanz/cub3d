@@ -62,7 +62,7 @@ void move(t_cube *cube)
 		if (cube->player_angle >= 360)
 			cube->player_angle = 0;
 	}
-	printf("player angle:%f\n", cube->player_angle);
+	printf("player angle:%0.2f\n", cube->player_angle);
 }
 
 int key_press(int key, t_cube *cube)

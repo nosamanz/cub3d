@@ -6,13 +6,32 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/03/16 17:57:01 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/03/24 18:13:45 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	find_player(t_cube *cube)
+int find_angle(int way, t_cube *cube)
+{
+	cube->map[(int)cube->player_y][(int)cube->player_x] = '0'; // baslangic yerini zemin yapiyoruz.
+	if (!way)
+		return(0);
+	else
+	{
+		if (way == 'N')
+			cube->player_angle = 90.0;
+		if (way == 'S')
+			cube->player_angle = 270.0;
+		if (way == 'E')
+			cube->player_angle = 0;
+		if (way == 'W')
+			cube->player_angle = 180.0;
+	}
+	return (1);
+}
+
+int	find_player(t_cube *cube)
 {
 	int	i;
 	int	j;
@@ -23,18 +42,56 @@ void	find_player(t_cube *cube)
 	{
 		while (cube->map[i][j])
 		{
-			if (cube->map[i][j] == 'P')
+			if (cube->map[i][j] == 'N' || cube->map[i][j] == 'E' || cube->map[i][j] == 'W' || cube->map[i][j] == 'S')
 			{
 				cube->player_x = j;
 				cube->player_y = i;
-				printf("%f %f\n", cube->player_x, cube->player_y);
-				cube->map[i][j] = '0';
-				return ;
+				return (cube->map[i][j]);
 			}
 			j++;
 		}
 		j = 0;
 		i++;
+	}
+	return (0);
+}
+
+void color_code_init(t_cube *cube, int *arry, char *str)
+{
+	int i = 0;
+	int j = 0;
+	char **tmp;
+
+	tmp = ft_split(str, ',');
+	while (i < 3)
+	{
+		arry[i] = ft_atoi(tmp[i]);
+		i++;
+	}
+}
+
+void take_color(t_cube *cube)
+{
+	int i = 0;
+
+	char **tmp;
+	char **tmp2;
+
+	while (cube->map_file[i][0] != 'F' && cube->map_file[i][0] != 'C')
+		i++;
+
+	tmp = ft_split(cube->map_file[i], 32);
+	tmp2 = ft_split(cube->map_file[++i], 32);
+
+	if (tmp[0][0] == 'F')
+	{
+		color_code_init(cube, cube->f_color, tmp[1]);
+		color_code_init(cube, cube->c_color, tmp2[1]);
+	}
+	else if (tmp[0][0] == 'C')
+	{
+		color_code_init(cube, cube->c_color, tmp2[1]);
+		color_code_init(cube, cube->f_color, tmp[1]);
 	}
 }
 
@@ -45,24 +102,17 @@ void	take_map(t_cube *cube)
 
 	i = 0;
 	j = 0;
-	while (cube->map_file[i][0] != '1' && cube->map_file[i][0] != '0')
+	while (cube->map_file[i][0] != '1' && cube->map_file[i][0] != '0' && cube->map_file[i][0] != 32)
 		i++;
 	cube->map = malloc(sizeof(char **) * 10000);
 	while (cube->map_file[i] != NULL)
 	{
-		if (cube->map_file[i][0] != '1')
+		if (cube->map_file[i][0] != '1' && cube->map_file[i][0] != 32)
 			break;
 		cube->map[j] = ft_strdup(cube->map_file[i]);
 		j++;
 		i++;
 	}
-	i = 0;
-	// while(cube->map_s[i] != NULL)
-	// {
-	// 	ft_putstr_fd("MAP", 1);
-	// 	ft_putstr_fd(cube->map_s[i], 1);
-	// 	i++;
-	// }
 }
 
 int	name_chck(char **av)
@@ -96,13 +146,13 @@ int	map_init(char **av, t_cube *cube)
 		free(str);
 		i++;
 	}
+	take_color(cube);
 	take_map(cube);
-	find_player(cube);
+	if (!find_angle(find_player(cube), cube))
+	{
+		printf("Player Error !\n");
+		exit(0);
+		//return (0);
+	}
 	return (1);
 }
-
-// int	map_check(char *av, t_cube *cube)
-// {
-// 	char	*str;
-// 	int		i;
-// }
