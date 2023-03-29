@@ -30,7 +30,7 @@ void	fill_map_spaces(t_cube *cube)
 	{
 		while (cube->map[i][j] != '\0')
 		{
-			if (cube->map[i][j] != '1' && cube->map[i][j] != '0')
+			if (cube->map[i][j] != '1' && cube->map[i][j] != '0' && cube->map[i][j] <= 32)
 				cube->map[i][j] = 'G';
 			j++;
 		}
@@ -41,11 +41,11 @@ void	fill_map_spaces(t_cube *cube)
 	j = 0;
 
 	//Map Cizme
-	// while (cube->map[i])
-	// {
-	// 	printf("%s\n", cube->map[i]);
-	// 	i++;
-	// }
+	while (cube->map[i])
+	{
+		printf("%s\n", cube->map[i]);
+		i++;
+	}
 	// pause();
 }
 
@@ -67,6 +67,10 @@ void	check_map_size(t_cube *cube)
 
 	cube->map_height = i - 1;
 	cube->map_long = longest;
+
+	//G yi kontrol etmek icin buraya tasindi
+	fill_map_spaces(cube);
+
 	if (!map_check(cube))
 	{
 		ft_putstr_fd("Map Error !", 2);\

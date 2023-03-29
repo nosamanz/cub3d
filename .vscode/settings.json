@@ -20,6 +20,7 @@
 		"ratio": "c",
 		"tuple": "c",
 		"utility": "c",
-		"cub3d": "c"
+		"cub3d": "c",
+		"sstream": "c"
 	}
 }

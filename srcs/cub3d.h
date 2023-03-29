@@ -67,6 +67,8 @@ typedef struct s_cube
 	int f_color[3];
 	int c_color[3];
 
+	bool map_status;
+
 } t_cube;
 
 int	key_press(int key, t_cube *cube);

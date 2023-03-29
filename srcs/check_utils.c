@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/03/24 18:13:45 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/03/29 23:48:25 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,11 @@ void	take_map(t_cube *cube)
 	cube->map = malloc(sizeof(char **) * 10000);
 	while (cube->map_file[i] != NULL)
 	{
-		if (cube->map_file[i][0] != '1' && cube->map_file[i][0] != 32)
-			break;
+		// if (cube->map_file[i][0] != '1' && cube->map_file[i][0] != 32)
+		// {
+		// 	ft_putstr_fd("Map Error (1) !\n", 2);
+		// 	exit(1);
+		// }
 		cube->map[j] = ft_strdup(cube->map_file[i]);
 		j++;
 		i++;
@@ -134,7 +137,7 @@ int	map_init(char **av, t_cube *cube)
 
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		write(2, "Map error\n", 11);
+		write(2, "Map error (2)\n", 11);
 	cube->map_file = malloc(sizeof(char **) * 10000);
 	while (1)
 	{
@@ -150,9 +153,8 @@ int	map_init(char **av, t_cube *cube)
 	take_map(cube);
 	if (!find_angle(find_player(cube), cube))
 	{
-		printf("Player Error !\n");
+		ft_putstr_fd("Player Error !\n", 2);
 		exit(0);
-		//return (0);
 	}
 	return (1);
 }

@@ -1,42 +1,69 @@
 #include "cub3d.h"
 
-int map_check(t_cube *cube)
+void map_check_part1(t_cube *cube)
 {
+	int i = -1;
+	int j = 0;
+	while (cube->map[++i])
+	{
+		while (cube->map[i][j++])
+		{
+			if (j == 0 && cube->map[i][0] == '0')
+				cube->map_status = false;
+			if (cube->map[i][j] == 32)
+			{
+				while (cube->map[i][j] == 32) // bosluklari atla ve
+					j++;
+				if (cube->map[i][j] != '1') // soldan ilk i duvar mi degil mi
+					cube->map_status = false;
+			}
+			if (i != 0 && cube->map[i - 1][j] == 'G' && cube->map[i][j] == '0')
+				cube->map_status = false;
+			if (i != 0 && cube->map[i + 1] != NULL && cube->map[i + 1][j] == 'G' && cube->map[i][j] == '0') // altta bosluk olup kendisi duvar olmayan (null sondaki icin)
+				cube->map_status = false;
+			if ((cube->map[i][j + 1] == 'G' || cube->map[i][j + 1] == '\n' || cube->map[i][j + 1] == '\0') && cube->map[i][j] == '0') //map in sag taraftaki en uzun duvarlari icin
+				cube->map_status = false;
+		}
+		j = 0;
+	}
+}
+
+void map_check_part2(t_cube *cube)
+{
+	unsigned int player = 0;
 	int i = 0;
 	int j = 0;
-	bool flag = false;
-	bool flag2 = false;
 
 	while (cube->map[i])
 	{
 		while (cube->map[i][j])
 		{
-			// if (cube->map[i][0] != 32 && cube->map[i][0] != '1')
-			// 	return (0);
-			else if (cube->map[i][j] == 32)
-			{
-				while (cube->map[i][j] == 32)
-					j++;
-				if (cube->map[i][j] != '1') // soldan ilk i duvar mi degil mi
-					return (0);
-			}
-			// else if (cube->map[cube->map_height][j] == 32)
-			// {
-			// 	while (cube->map[cube->map_height][j] == 32)
-			// 		j++;
-			// 	if (cube->map[cube->map_height][j] != '1')
-			// 		return (0);
-
-			// }
-			if (i == 0 && cube->map[i][j] == '0')
-				return (0);
-			if (i != 0 && cube->map[i - 1][j] == 32 && cube->map[i][j] == '0') // ustte bosluk olup kendisi duvar olmayan
-				return (0);
-			// exit(1);
+			if (cube->map[i][j] == 'N' || cube->map[i][j] == 'E' || cube->map[i][j] == 'W' || cube->map[i][j] == 'S')
+				player++;
+			else if (cube->map[i][j] != '0' && cube->map[i][j] != '1' && cube->map[i][j] != 'G') // baska karakter var
+				cube->map_status = false;
 			j++;
 		}
 		j = 0;
 		i++;
 	}
+	if (player > 0) // 0 olmasinin sebebi ilk gorulen player in yerine 0 atiyoruz ve eger baska varsa onu ellemiyoruz.
+		cube->map_status = false;
+}
+
+int map_check(t_cube *cube)
+{
+
+	// i = 0;
+	// while (cube->map[i])
+	// {
+	// 	printf("%s", cube->map[i]);
+	// 	i++;
+	// }
+	// pause();
+	map_check_part1(cube);
+	map_check_part2(cube);
+	if (cube->map_status == false)
+		return (0);
 	return (1);
 }
