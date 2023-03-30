@@ -3,7 +3,11 @@
 int	is_wall(unsigned int x, unsigned int y, t_cube *cube)
 {
 	if (cube->map[y / CUBE_H][x / CUBE_W] == '1')
+	{
+		cube->is_wall = true;
 		return (1);
+	}
+	cube->is_wall = false;
 	return (0);
 }
 
@@ -16,9 +20,9 @@ void move(t_cube *cube)
 		x += cos(cube->player_angle * (M_PI / 180.0));
 		y += sin(cube->player_angle * (M_PI / 180.0) * -1);
 
-		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2), cube))
 			cube->x = x;
-		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
+		if (!is_wall(cube->x + (CUBE_W / 2), y + (CUBE_W / 2), cube))
 			cube->y = y;
 	}
 	if (cube->s)
@@ -26,28 +30,27 @@ void move(t_cube *cube)
 		x += cos(cube->player_angle * (M_PI / 180.0)) * -1;
 		y += sin(cube->player_angle * (M_PI / 180.0));
 
-		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
+		if (!is_wall(x  + (CUBE_W / 2), cube->y + (CUBE_W / 2), cube))
 			cube->x = x;
-		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
+		if (!is_wall(cube->x + (CUBE_W / 2), y + (CUBE_W / 2), cube))
 			cube->y = y;
 	}
 	if (cube->a)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0)) * -1;
 		y += cos(cube->player_angle * (M_PI / 180.0)) * -1;
-		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2), cube))
 			cube->x = x;
-		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
+		if (!is_wall(cube->x + (CUBE_W / 2), y + (CUBE_W / 2), cube))
 			cube->y = y;
 	}
 	if (cube->d)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0));
 		y += cos(cube->player_angle * (M_PI / 180.0));
-
-		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2),cube))
+		if (!is_wall(x + (CUBE_W / 2), cube->y + (CUBE_W / 2), cube))
 			cube->x = x;
-		if (!is_wall(cube->x + (CUBE_W / 2), y,cube))
+		if (!is_wall(cube->x + (CUBE_W / 2), y + (CUBE_W / 2), cube))
 			cube->y = y;
 	}
 	if (cube->ra)
@@ -79,6 +82,10 @@ int key_press(int key, t_cube *cube)
 		cube->ra = true;
 	if (key == LA)
 		cube->la = true;
+	if (key == M && cube->m == false)
+		cube->m = true;
+	else if (key == M && cube->m == true)
+		cube->m = false;
 	return (1);
 }
 

@@ -14,6 +14,7 @@
 # define D	 2
 # define LA	 123
 # define RA	 124
+# define M	 46
 
 # define AN 5
 
@@ -60,15 +61,24 @@ typedef struct s_cube
 	bool d;
 	bool ra;
 	bool la;
+	bool m;
 	double player_x;
 	double player_y;
 	double player_angle;
+	//new
+	double def_p_x;
+	double def_p_y;
+	int ray_number;
+	int ray_dir_x;
+	int ray_dir_y;
+	bool ray_sp_ray;
+
 
 	int f_color[3];
 	int c_color[3];
 
 	bool map_status;
-
+	bool is_wall;
 } t_cube;
 
 int	key_press(int key, t_cube *cube);
@@ -89,6 +99,7 @@ void	init_img(t_cube *cube);
 void	draw_win(t_cube *cube);
 void	draw_img(t_cube *cube);
 void	draw_minimap(t_cube *cube);
+void	draw_trans_map(t_cube *cube);
 void	draw_player(t_cube *cube);
 void	draw_ray(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);

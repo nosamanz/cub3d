@@ -11,6 +11,7 @@ void	init(t_cube *cube)
 	cube->d = false;
 	cube->ra = false;
 	cube->la = false;
+	cube->m = false;
 }
 
 void	init_win(t_cube *cube)

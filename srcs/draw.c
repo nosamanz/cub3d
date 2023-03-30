@@ -23,7 +23,7 @@ void	draw_win(t_cube *cube)
 		}
 		k++;
 	}
-	// k = 0;
+	k = 0;
 
 	// tran.
 	// while (k != cube->map_s.map_height)
@@ -38,7 +38,13 @@ void	draw_win(t_cube *cube)
 void	draw_img(t_cube *cube)
 {
 	//minimap
+	if (cube->m == true)
+	{
+		draw_trans_map(cube);
+		return ;
+	}
 	draw_minimap(cube);
 	draw_player(cube);
-	draw_ray(cube);
+	// if (cube->is_wall == false)
+		draw_ray(cube);
 }
