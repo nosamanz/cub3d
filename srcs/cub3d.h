@@ -23,6 +23,7 @@
 #include <math.h>
 #include <fcntl.h>
 #include <stdbool.h>
+#include <string.h>
 
 
 typedef struct s_map
@@ -35,7 +36,6 @@ typedef struct s_map
 	int		*player_addr;
 	int		mini_cub_h;
 	int		mini_cub_w;
-	double		p_movement_mm;
 } t_map;
 
 
@@ -66,13 +66,24 @@ typedef struct s_cube
 	double player_y;
 	double player_angle;
 	//new
-	double def_p_x;
-	double def_p_y;
-	int ray_number;
-	int ray_dir_x;
-	int ray_dir_y;
-	bool ray_sp_ray;
-
+	double p_x;
+	double p_y;
+	double ray_x_v;
+	double ray_y_v;
+	double ray_x_h;
+	double ray_y_h;
+	double ray_dir_x;
+	double ray_dir_y;
+	bool	hit_h;
+	bool	hit_v;
+	double vdx;
+	double vdy;
+	double hdx;
+	double hdy;
+	double tmp_x;
+	double tmp_y;
+	double tmp2_x;
+	double tmp2_y;
 
 	int f_color[3];
 	int c_color[3];
@@ -107,6 +118,10 @@ unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
 //void	handle_keypress(t_cube *cube);
 void	handle_keypress(t_cube *cube);
 //void	handle_esc(t_cube *cube);
+
+void	ray_dda(t_cube *cube, double angle, int i);
+int	is_wall(unsigned int x, unsigned int y, t_cube *cube);
+int	is_wall2(double x, double y, t_cube *cube);
 
 
 #endif

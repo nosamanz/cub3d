@@ -2,12 +2,20 @@
 
 int	is_wall(unsigned int x, unsigned int y, t_cube *cube)
 {
-	if (cube->map[y / CUBE_H][x / CUBE_W] == '1')
+	if (cube->map[y / CUBE_H][x / CUBE_W] == '1' || cube->map[y / CUBE_H][x / CUBE_W] == 'G')
 	{
 		cube->is_wall = true;
 		return (1);
 	}
 	cube->is_wall = false;
+	return (0);
+}
+
+int	is_wall2(double x, double y, t_cube *cube)
+{
+	if ((int)y < cube->map_height && (int)x < cube->map_long)
+		if (cube->map[(int)y][(int)x] == '1' || cube->map[(int)y][(int)x] == 'G')
+			return (1);
 	return (0);
 }
 
@@ -56,20 +64,22 @@ void move(t_cube *cube)
 	if (cube->ra)
 	{
 		cube->player_angle -= AN;
-		if (cube->player_angle < 0)
-			cube->player_angle = 360;
+		while (cube->player_angle < 0)
+			cube->player_angle += 360;
 	}
 	if (cube->la)
 	{
 		cube->player_angle += AN;
-		if (cube->player_angle >= 360)
-			cube->player_angle = 0;
+		while (cube->player_angle >= 360)
+			cube->player_angle -= 360;
 	}
 	printf("player angle:%0.2f\n", cube->player_angle);
 }
 
 int key_press(int key, t_cube *cube)
 {
+	if (key == ESC)
+		exit(0);
 	if (key == W)
 		cube->w = true;
 	if (key == S)

@@ -21,6 +21,8 @@
 		"tuple": "c",
 		"utility": "c",
 		"cub3d": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"cstdio": "c",
+		"complex": "c"
 	}
 }

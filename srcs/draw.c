@@ -39,12 +39,11 @@ void	draw_img(t_cube *cube)
 {
 	//minimap
 	if (cube->m == true)
-	{
 		draw_trans_map(cube);
-		return ;
-	}
-	draw_minimap(cube);
-	draw_player(cube);
-	// if (cube->is_wall == false)
+	else
+	{
+		draw_minimap(cube);
+		draw_player(cube);
 		draw_ray(cube);
+	}
 }

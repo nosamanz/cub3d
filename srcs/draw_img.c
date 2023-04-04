@@ -55,14 +55,9 @@ void draw_trans_map(t_cube *cube)
 {
 	int	i;
 	int j;
-	int	k;
-	int l;
 
-	k = 0;
-	l = 0;
 	i = 0;
 	j = 0;
-
 
 	while (cube->map[i])
 	{
@@ -98,22 +93,58 @@ void	draw_player(t_cube *cube)
 
 void duvar_ciz(int x, double line, t_cube* cube)
 {
-	double l_begin = (cube->win_height / 2) - line / 2;
-	double l_end = (cube->win_height / 2) + line / 2;
+	double l_begin = ((double)cube->win_height / 2.0) - line / 2.0;
+	double l_end = ((double)cube->win_height / 2.0) + line / 2.0;
+
 	while(l_begin <= l_end)
 	{
-			cube->win_addr[cube->win_width * (int)l_begin + (int)x] = rgb_to_hex(0, 155, 155, 0);
-			l_begin++;
+		cube->win_addr[cube->win_width * (int)l_begin + (int)x] = rgb_to_hex(0, 155, 155, 0);
+		l_begin++;
 	}
-
 }
 
-void func(int x,double dist, t_cube *cube)
+// void func(int x, double dist, t_cube *cube)
+// {
+// 	// double line = cube->win_height * 10 / dist * 2;
+// 	double line = (double)cube->win_height * 10.0 / dist * 2.0;
+
+// 	//printf("line:%lf\n", line);
+// 	if (line > 700.0) // yakinlasinca seg almasin diye
+// 		line = 700.0;
+// 	duvar_ciz(x, line, cube);
+// }
+
+void c3D(double dist, t_cube *cube, int i)
 {
-	double line = cube->win_height * 10 / dist * 2;
-	if (line > 700)
-		line = 700;
-	duvar_ciz(x, line, cube);
+	int	direction;
+	dist = (dist * 8.0 * (double)cube->win_height) / (double)cube->win_width;
+	int	img_loc = (cube->win_height / 2) * cube->win_width + i;
+	//double l_begin = ((double)cube->win_height / 2.0) - line / 2.0;
+	int		l_begin = 0;
+	double	l_end = (((double)cube->win_height / 2.0) / dist) * 8.0;
+	if (cube->hit_h)
+	{
+		if (cube->ray_dir_y == 1)
+			direction = 0x0e0f01 * M_LN10;
+		else
+			direction = 0xff000F * M_PI;
+	}
+	else if (cube->hit_v)
+	{
+		if (cube->ray_dir_x == 1)
+			direction = 0xe0ff0e / 2;
+		else
+			direction = 0xeeeeee;
+	}
+	while(l_begin < l_end)
+	{
+		if (img_loc - (l_begin * cube->win_width) > 0)
+			cube->win_addr[img_loc - (l_begin * cube->win_width)] = direction;
+		if (img_loc + (l_begin * cube->win_width) < cube->win_height * cube->win_width)
+			cube->win_addr[img_loc + (l_begin * cube->win_width)] = direction;
+			// cube->win_addr[img_loc + (l_begin * cube->win_width)] = (int)direction * i / dist;
+		l_begin++;
+	}
 }
 
 void draw_ray(t_cube *cube)
@@ -128,108 +159,164 @@ void draw_ray(t_cube *cube)
 
 	// double ray_x = cos(cube->player_angle * (M_PI / 180.0));
 	// double ray_y = sin(cube->player_angle * (M_PI / 180.0)) * -1;
-	ray_angle = cube->player_angle + 33;
+	ray_angle = cube->player_angle + 33.0;
+	while (cube->player_angle >= 360)
+		cube->player_angle -= 360;
+	while (cube->player_angle < 0)
+		cube->player_angle += 360;
 	double ray_x = cos(ray_angle * (M_PI / 180.0));
-	double ray_y = sin(ray_angle * (M_PI / 180.0)) * -1;
-
-	while (i < 1500)
+	double ray_y = -sin(ray_angle * (M_PI / 180.0));
+	//printf("rayx:%f rayy%f\n", ray_x, ray_y);
+	//printf("------------------>%d\n", cube->win_width);
+	while (i < cube->win_width)
 	{
-		while (cube->map[(int)(y / 8)][(int)(x / 8)] != '1')
+		while (cube->map[(int)(y / 8.0)][(int)(x / 8.0)] != '1')
 		{
 			x += ray_x;
 			y += ray_y;
-			if (cube->map[(int)(y / 8)][(int)(x / 8)] == '1')
+			if (cube->map[(int)(y / 8.0)][(int)(x / 8.0)] == '1')
 				break;
 			cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 255, 0);
 		}
-		x = fabs(x - cube->x);
-		y = fabs(y - cube->y);
-		double (dist) = sqrt(x * x + y * y);
+		// x = fabs(x - cube->x);
+		// y = fabs(y - cube->y);
+		// double (dist) = sqrt((x * x) + (y * y));
 		// func(dist, cube); //  winheight / dist // duvar_ciz(duvar_uzunluğu); (winheigt / 2) - duvar_uzunluğu / 2
-		func(i, dist, cube);
+		ray_dda(cube, ray_angle, i);
 		x = tmp_x;
 		y = tmp_y;
-		ray_angle -= 0.02;
-		if (ray_angle < cube->player_angle - 33)
-			break;
+		ray_angle -= 66.0 / cube->win_width;
+		// while (ray_angle >= 360.0)
+		// 	ray_angle -= 360.0;
+		// while (ray_angle < 0.0)
+		// 	ray_angle += 360.0;
 		ray_x = cos(ray_angle * (M_PI / 180.0));
-		ray_y = sin(ray_angle * (M_PI / 180.0)) * -1;
-		i++;
+		ray_y = -sin(ray_angle * (M_PI / 180.0));
+		// if (ray_angle < cube->player_angle - 33)
+		// 	break;
+		i += 1;
 	}
 }
 
-// void	draw_ray(int x, int y, double angle, t_cube *cube)
-// {
-// 	double	ray_x;
-// 	double	ray_y;
-// 	double	dx;
-// 	double	dy;
+void	horizontal_while(t_cube *cube, double angle)
+{
+	while (cube->p_x + cube->hdx * cube->ray_dir_x >= 0 && cube->p_x + cube->hdx
+		* cube->ray_dir_x <= (cube->map_s.map_width - 1)
+		&& cube->p_y + cube->hdy * cube->ray_dir_y - 0.0001 >= 0
+		&& cube->p_y + cube->hdy * cube->ray_dir_y - 0.0001 <= cube->map_s.map_height)
+	{
+		cube->hdy = cube->hdy + 0.0001;
+		if (is_wall2(cube->p_x + cube->hdx * cube->ray_dir_x,
+				cube->p_y + cube->hdy * cube->ray_dir_y, cube))
+		{
+			cube->hit_h = true;
+			cube->tmp2_x = cube->hdx * cube->ray_dir_x;
+			cube->tmp2_y = cube->hdy * cube->ray_dir_y;
+			cube->ray_x_h = cube->p_x + cube->tmp2_x;
+			cube->ray_y_h = cube->p_y + cube->tmp2_y;
+			break ;
+		}
+		cube->hdy = cube->hdy + 1.0 - 0.0001;
+		cube->hdx = fabs(cube->hdy / tan(angle * (M_PI / 180)));
+	}
+}
 
-// 	ray_x = cube->def_p_x;
-// 	ray_y = cube->def_p_y;
-// 	// dx = main->ray.distance * fabs(cos(angle_to_radyan(angle))) * x;
-// 	// dy = main->ray.distance * fabs(sin(angle_to_radyan(angle))) * y;
-// 	dx = 10 * fabs(cos(angle_to_radyan(angle))) * x;
-// 	dy = 10 * fabs(sin(angle_to_radyan(angle))) * y;
-// 	dx /= main->ray.distance;
-// 	dy /= main->ray.distance;
-// 	while (1)
-// 	{
-// 		// if (!is_wall_v2(main, ray_x, ray_y))
-// 			put_to_ray_addr(main, ray_y, ray_x);
-// 		// else
-// 		// {
-// 			// main->ray.pos_x = ray_x;
-// 			// main->ray.pos_y = ray_y;
-// 			// draw_3d(main, main->ray.distance, angle);
-// 			// break ;
-// 		// }
-// 		ray_x += dx / 100;
-// 		ray_y += dy / 100;
-// 	}
-// }
+double	horizontal(t_cube *cube, double angle)
+{
+	double	distance;
 
-// void	ray_calculator(t_cube *cube, double angle)
-// {
-// 	// double	distance_v;
-// 	// double	distance_h;
-// 	int		x;
-// 	int		y;
+	distance = 10000;
+	if (cube->ray_dir_y == -1)
+		cube->hdy = cube->p_y - floor(cube->p_y);
+	else
+		cube->hdy = ceil(cube->p_y) - cube->p_y;
+	cube->hdx = fabs(cube->hdy / tan(angle * (M_PI / 180)));
+	cube->tmp2_x = cube->hdx * cube->ray_dir_x;
+	cube->tmp2_y = cube->hdy * cube->ray_dir_x;
+	horizontal_while(cube, angle);
+	if (cube->hit_h == true)
+		distance = sqrt((cube->tmp2_x * cube->tmp2_x) \
+			+ (cube->tmp2_y * cube->tmp2_y));
+	return (distance);
+}
 
-// 	x = ((cos(angle * (M_PI / 180)) > 0) * 2) - 1;
-// 	y = ((sin(angle * (M_PI / 180)) > 0) * -2) + 1;
-// 	// cube->ray_dir_x = x;
-// 	// cube->ray_dir_y = y;
-// 	// cube->ray_sp_ray = false;
-// 	// distance_v = ray_vertical(cube, angle, x, y);
-// 	// distance_h = ray_horizonal(cube, angle, x, y);
-// 	// ray_calculator_c(main, distance_v, distance_h);
-// 	// main->ray.o_distance = main->ray.distance;
-// 	// main->ray.distance = main->ray.distance
-// 	// 	* cos((main->player->angle - angle) * (M_PI / 180.0));
-// 	draw_ray(x, y, angle, main);
-// }
+void	vertical_while(t_cube *cube, double angle)
+{
+	while (cube->p_x + cube->vdx * cube->ray_dir_x - 0.0001 >= 0
+		&& cube->p_x + cube->vdx * cube->ray_dir_x - 0.0001 <= (cube->map_s.map_width - 1)
+		&& cube->p_y + cube->vdy * cube->ray_dir_y >= 0
+		&& cube->p_y + cube->vdy * cube->ray_dir_y <= cube->map_s.map_height)
+	{
+		cube->vdx = cube->vdx + 0.0001;
+		if (is_wall2(cube->p_x + (cube->vdx
+				* cube->ray_dir_x), cube->p_y + (cube->vdy * cube->ray_dir_y), cube))
+		{
+			cube->hit_v = true;
+			cube->tmp_x = cube->vdx * cube->ray_dir_x;
+			cube->tmp_y = cube->vdy * cube->ray_dir_y;
+			cube->ray_x_v = cube->p_x + cube->tmp_x;
+			cube->ray_y_v = cube->p_y + cube->tmp_y;
+			break ;
+		}
+		cube->vdx = cube->vdx + 1.0 - 0.0001;
+		cube->vdy = fabs(tan(angle * (M_PI / 180)) * cube->vdx);
+	}
+}
 
-// void ray_casting(t_cube *cube)
-// {
-// 	double angle;
+double	vertical(t_cube *cube, double angle)
+{
+	double	distance;
 
-// 	cube->def_p_x = (cube->x + 8);
-// 	cube->def_p_y =	(cube->y + 8);
+	distance = 10000;
+	if (cube->ray_dir_x == -1) // x i izgaraya cek
+		cube->vdx = cube->p_x - floor(cube->p_x);
+	else
+		cube->vdx = ceil(cube->p_x) - cube->p_x;
 
-// 	angle = cube->player_angle - (AN / 2);
-// 	while (angle >= 360)
-// 		angle -= 360;
-// 	while (angle < 0)
-// 		angle += 360;
+	cube->vdy = fabs(tan(angle * (M_PI / 180)) * cube->vdx);
+	cube->tmp_x = cube->vdx * cube->ray_dir_x;
+	cube->tmp_y = cube->vdy * cube->ray_dir_y;
+	vertical_while(cube, angle);
+	if (cube->hit_v == true)
+		distance = sqrt((cube->tmp_x * cube->tmp_x) + (cube->tmp_y * cube->tmp_y));
+	return (distance);
+}
 
-// 	cube->ray_number = 0;
-// 	while (cube->ray_number < cube->win_width)
-// 	{
-// 		//
-// 		ray_calculator(cube, angle);
-// 		angle += (double)AN / (double)cube->win_width;
-// 		cube->ray_number++;
-// 	}
-// }
+void	ray_dda(t_cube *cube, double angle, int i)
+{
+	double	h_dis;
+	double	v_dis;
+	double	distance;
 
+	cube->p_x = cube->x / (double)CUBE_W;
+	cube->p_y = cube->y / (double)CUBE_H;
+
+	cube->hit_h = false;
+	cube->hit_v = false;
+	// cube->ray_dir_x = ((cos(angle * (M_PI / 180)) > 0) * 2) - 1;
+	// cube->ray_dir_y = ((sin(angle * (M_PI / 180)) > 0) * -2) + 1;
+	if (cos(angle * (M_PI / 180)) > 0)
+		cube->ray_dir_x = 1.0;
+	else
+		cube->ray_dir_x = -1.0;
+	if (sin(angle * (M_PI / 180)) > 0)
+		cube->ray_dir_y = -1.0;
+	else
+		cube->ray_dir_y = 1.0;
+	v_dis = vertical(cube, angle);
+	h_dis = horizontal(cube, angle);
+	if (v_dis < h_dis)
+	{
+		distance = v_dis;
+		cube->hit_h = false;
+		cube->hit_v = true;
+	}
+	else
+	{
+		distance = h_dis;
+		cube->hit_v = false;
+		cube->hit_h = true;
+	}
+	//distance *= fabs(cos(((cube->player_angle * (180.0 /M_PI)) - angle) * (M_PI / 180)));
+	c3D(distance, cube, i);
+}

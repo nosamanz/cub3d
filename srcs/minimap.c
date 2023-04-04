@@ -69,6 +69,8 @@ void	check_map_size(t_cube *cube)
 	cube->map_long = longest;
 
 	//G yi kontrol etmek icin buraya tasindi
+	cube->map_s.map_width = (longest - 1) * CUBE_W;
+	printf("mw: %d\n", cube->map_s.map_width);
 	fill_map_spaces(cube);
 
 	if (!map_check(cube))
@@ -85,19 +87,12 @@ void	check_map_size(t_cube *cube)
 	cube->map_s.map_height = i * CUBE_H;
 	printf("mh: %d\n", cube->map_s.map_height);
 
-	cube->map_s.map_width = (longest - 1) * CUBE_W;
-	printf("mw: %d\n", cube->map_s.map_width);
 
 	cube->map_s.mini_cub_h = CUBE_H;
 	cube->map_s.mini_cub_w = CUBE_W;
 
 	cube->x = cube->player_x * CUBE_W;
 	cube->y = cube->player_y * CUBE_H;
-
-	// cube->a = (cube->player_x * cube->map_s.mini_cub_w);
-	// cube->d = (cube->player_x * cube->map_s.mini_cub_w) + cube->map_s.mini_cub_w;
-	// cube->w = (cube->player_y * cube->map_s.mini_cub_h);
-	// cube->s = (cube->player_y * cube->map_s.mini_cub_h) + cube->map_s.mini_cub_h;
 
 	printf("cube->d:%d\n cube->a:%d\n", cube->d, cube->a);
 	printf("bir kup genislik %d yukseklik %d\n", cube->map_s.mini_cub_w, cube->map_s.mini_cub_h);
