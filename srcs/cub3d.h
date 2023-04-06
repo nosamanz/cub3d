@@ -7,14 +7,25 @@
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 
-# define ESC 53
-# define W	 13
-# define A	 0
-# define S	 1
-# define D	 2
-# define LA	 123
-# define RA	 124
-# define M	 46
+// # define ESC	53
+// # define W	13
+// # define A	0
+// # define S	1
+// # define D	2
+// # define LA	123
+// # define RA	124
+// # define M	46
+
+
+//FOR WINDOWS
+# define ESC 65307
+# define W	 119
+# define A	 97
+# define S	 115
+# define D	 100
+# define LA	 65361
+# define RA	 65363
+# define M	 109
 
 # define AN 5
 
@@ -34,8 +45,6 @@ typedef struct s_map
 	void	*img_ptr_player;
 	int		*addr;
 	int		*player_addr;
-	int		mini_cub_h;
-	int		mini_cub_w;
 } t_map;
 
 

@@ -79,7 +79,7 @@ void move(t_cube *cube)
 int key_press(int key, t_cube *cube)
 {
 	if (key == ESC)
-		exit(0);
+		exit (0);
 	if (key == W)
 		cube->w = true;
 	if (key == S)

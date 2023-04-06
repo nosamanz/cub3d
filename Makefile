@@ -1,11 +1,15 @@
 CC = gcc
 FLAGS = -framework OpenGL -framework AppKit -L./minilibx -lmlx
+FLAGS_FWIN = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
 NAME = cub3d
 SRCS = srcs/*.c libft/*.c
 
 all:
 #	@make -C libft
 	@$(CC) $(SRCS) -o $(NAME) $(FLAGS)
+
+windows:
+	@$(CC) $(SRCS) -o $(NAME) $(FLAGS_FWIN)
 
 clean:
 #	@make clean -C libft
