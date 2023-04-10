@@ -1,38 +1,5 @@
 #include "cub3d.h"
 
-void c3D(double dist, t_cube *cube, int i)
-{
-	int	direction;
-	dist = (dist * 8.0 * (double)cube->win_height) / (double)cube->win_width;
-	int	img_loc = (cube->win_height / 2) * cube->win_width + i;
-	//double l_begin = ((double)cube->win_height / 2.0) - line / 2.0;
-	int		l_begin = 0;
-	double	l_end = (((double)cube->win_height / 2.0) / dist) * 8.0;
-	if (cube->hit_h)
-	{
-		if (cube->ray_dir_y == 1)
-			direction = 0x0e0f01 * M_LN10;
-		else
-			direction = 0xff000F * M_PI;
-	}
-	else if (cube->hit_v)
-	{
-		if (cube->ray_dir_x == 1)
-			direction = 0xe0ff0e / 2;
-		else
-			direction = 0xeeeeee;
-	}
-	while(l_begin < l_end)
-	{
-		if (img_loc - (l_begin * cube->win_width) > 0)
-			cube->win_addr[img_loc - (l_begin * cube->win_width)] = direction;
-		if (img_loc + (l_begin * cube->win_width) < cube->win_height * cube->win_width)
-			cube->win_addr[img_loc + (l_begin * cube->win_width)] = direction;
-			// cube->win_addr[img_loc + (l_begin * cube->win_width)] = (int)direction * i / dist;
-		l_begin++;
-	}
-}
-
 void	horizontal_while(t_cube *cube, double angle)
 {
 	while (cube->p_x + cube->hdx * cube->ray_dir_x >= 0 && cube->p_x + cube->hdx
@@ -117,6 +84,58 @@ double	vertical(t_cube *cube, double angle)
 	return (distance);
 }
 
+void	new_c3d(t_cube *cube, double distance, int raycount, t_xpm xpm)
+{
+	distance = (distance * (double)CUBE_H * ((double)cube->win_height / 2) / (double)cube->win_width);
+	// double	l_end = (((double)cube->win_height) / distance) * (double)CUBE_H;
+	double l_end = (((double)cube->win_height / 2.0) / distance) * (double)CUBE_H;
+
+	if (cube->hit_h)
+		cube->find_pixel = (cube->ray_x - floor(cube->ray_x)) * xpm.width;
+	else if (cube->hit_v)
+		cube->find_pixel = (cube->ray_y - floor(cube->ray_y)) * xpm.width;
+
+	int img_loc = (xpm.width * (xpm.height / 2)) + cube->find_pixel;
+
+	// if ((l_end >= 4000))
+	// 	l_end = 4000;
+	int color;
+	int (l_begin) = 0;
+	while (l_begin < l_end && l_begin <= (int)(cube->win_height / 2.0))
+	{
+		color = xpm.img.addr[img_loc + xpm.width * (int)((double)l_begin * ((double)xpm.width / (double)(l_end * 2)))];
+		cube->win_addr[((cube->win_height / 2) * cube->win_width + raycount)
+			+ (cube->win_width * l_begin)] = color;
+		color = xpm.img.addr[img_loc - xpm.width * (int)((double)l_begin * ((double)xpm.width / (double)(l_end * 2)))];
+		cube->win_addr[((cube->win_height / 2) * cube->win_width + raycount)
+			- (cube->win_width * l_begin)] = color;
+		l_begin++;
+	}
+}
+
+void	ray(double distance, t_cube *cube, int i)
+{
+	if (cube->hit_h)
+	{
+		cube->ray_x = cube->ray_x_h;
+		cube->ray_y = cube->ray_y_h;
+		if (cube->ray_dir_y == 1)
+			cube->xpm_number = 1;
+		else
+			cube->xpm_number = 0;
+	}
+	else if (cube->hit_v)
+	{
+		cube->ray_x = cube->ray_x_v;
+		cube->ray_y = cube->ray_y_v;
+		if (cube->ray_dir_x == 1)
+			cube->xpm_number = 2;
+		else
+			cube->xpm_number = 3;
+	}
+	new_c3d(cube, distance, i, cube->xpm[cube->xpm_number]);
+}
+
 void	ray_dda(t_cube *cube, double angle, int i)
 {
 	double	h_dis;
@@ -152,6 +171,6 @@ void	ray_dda(t_cube *cube, double angle, int i)
 		cube->hit_v = false;
 		cube->hit_h = true;
 	}
-	//distance *= fabs(cos(((cube->player_angle * (180.0 /M_PI)) - angle) * (M_PI / 180)));
-	c3D(distance, cube, i);
+	// distance *= fabs(cos(((cube->player_angle * (180.0 /M_PI)) - angle) * (M_PI / 180)));
+	ray(distance, cube, i);
 }

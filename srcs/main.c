@@ -18,6 +18,26 @@ int	ft_close(void)
 	return (0);
 }
 
+int	name_chck(char **av)
+{
+	int i = 0;
+
+	while (check_char(&av[1][i], '.'))
+		i++;
+	if (!ft_strcmp(&av[1][i], "cub"))
+		return (1);
+	return (0);
+}
+
+// int	mouse_a(int x, int y, t_cube *cube)
+// {
+// 	if (x > 123)
+// 		cube->player_angle -= AN/ 2;
+// 	if (x < 123)
+// 		cube->player_angle += AN/ 2;
+// 	// mlx_mouse_move(cube->win, 123, 123);
+// }
+
 int main(int ac, char **av)
 {
 	t_cube cube;
@@ -27,13 +47,14 @@ int main(int ac, char **av)
 	if (ac == 2 && name_chck(av) && map_init(av, &cube))
 	{
 		check_map_size(&cube);
-		// G yi kontrol edebilmek icin check map in icine yazildi
-		// fill_map_spaces(&cube);
 		init(&cube);
+
+		// mlx_mouse_move(cube.win, 123, 123);
 
 		mlx_hook(cube.win, 3, 1L<<1, &key_release, &cube);
 		mlx_hook(cube.win, 2, 1L<<0, &key_press, &cube);
-		mlx_hook(cube.win, 17, (0L), ft_close, main);
+		mlx_hook(cube.win, 17, (0L), ft_close, NULL);
+		// mlx_hook(cube.win, 6, 0L, &mouse_a, &cube);
 		mlx_loop_hook(cube.mlx, &render, &cube);
 		mlx_loop(cube.mlx);
 	}

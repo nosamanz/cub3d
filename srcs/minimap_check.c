@@ -23,6 +23,8 @@ void map_check_part1(t_cube *cube)
 				cube->map_status = false;
 			if ((cube->map[i][j + 1] == 'G' || cube->map[i][j + 1] == '\n' || cube->map[i][j + 1] == '\0') && cube->map[i][j] == '0') //map in sag taraftaki en uzun duvarlari icin
 				cube->map_status = false;
+			// if (i != 0 && (cube->map[i][j] == 'G' && cube->map[i][j - 1] == '1' && cube->map[i - 1][j - 1] == '0'))
+			// 	cube->map_status = false;
 		}
 		j = 0;
 	}

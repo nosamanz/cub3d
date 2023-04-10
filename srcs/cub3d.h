@@ -1,8 +1,14 @@
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#define CUBE_H 8
-#define CUBE_W 8
+//settings
+# define CUBE_H 8
+# define CUBE_W 8
+
+//window multiplier
+# define WM 4
+//sens
+# define AN 3
 
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
@@ -27,7 +33,6 @@
 # define RA	 65363
 # define M	 109
 
-# define AN 5
 
 #include "../libft/libft.h"
 #include "../minilibx/mlx.h"
@@ -36,6 +41,21 @@
 #include <stdbool.h>
 #include <string.h>
 
+typedef struct s_mlximg
+{
+	void	*ptr;
+	int		*addr;
+	int		bpp;
+	int		line_size;
+	int		endian;
+}	t_mlximg;
+
+typedef struct s_xpm
+{
+	t_mlximg	img;
+	int			width;
+	int			height;
+} t_xpm;
 
 typedef struct s_map
 {
@@ -51,6 +71,9 @@ typedef struct s_map
 typedef struct s_cube
 {
 	t_map	map_s;
+	t_xpm	xpm[4];
+	int		xpm_number;
+	int		find_pixel;
 	int		win_width;
 	int		win_height;
 	char	**map_file;
@@ -81,6 +104,8 @@ typedef struct s_cube
 	double ray_y_v;
 	double ray_x_h;
 	double ray_y_h;
+	double ray_x;
+	double ray_y;
 	double ray_dir_x;
 	double ray_dir_y;
 	bool	hit_h;
@@ -97,12 +122,19 @@ typedef struct s_cube
 	int f_color[3];
 	int c_color[3];
 
+	char **NO;
+	char **SO;
+	char **WE;
+	char **EA;
+
 	bool map_status;
 	bool is_wall;
 } t_cube;
 
-int	key_press(int key, t_cube *cube);
-int	key_release(int key, t_cube *cube);
+int		key_press(int key, t_cube *cube);
+void	handle_keypress(t_cube *cube);
+int		key_release(int key, t_cube *cube);
+int		mouse_a(int x, int y, t_cube *cube);
 
 int		name_chck(char **av);
 int		map_init(char **av, t_cube *cube);
@@ -112,25 +144,31 @@ void	fill_map_spaces(t_cube *cube);
 //////////render//////////
 int	render(t_cube *cube);
 
+//////////init//////////
 void	init(t_cube *cube);
 void	init_win(t_cube *cube);
 void	init_img(t_cube *cube);
-
-void	draw_win(t_cube *cube);
-void	draw_img(t_cube *cube);
-void	draw_minimap(t_cube *cube);
-void	draw_trans_map(t_cube *cube);
-void	draw_player(t_cube *cube);
-void	draw_ray(t_cube *cube);
+void	init_xpm(t_cube *cube);
+void	take_texture(t_cube *cube);
+void	take_color(t_cube *cube);
+void	color_code_init(t_cube *cube, int *arry, char *str);
+//////////draw//////////
+void			draw_win(t_cube *cube);
+void			draw_img(t_cube *cube);
+void			draw_minimap(t_cube *cube);
+void			draw_trans_map(t_cube *cube);
+void			draw_player(t_cube *cube);
+void			draw_ray(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
 
-//void	handle_keypress(t_cube *cube);
-void	handle_keypress(t_cube *cube);
-//void	handle_esc(t_cube *cube);
 
 void	ray_dda(t_cube *cube, double angle, int i);
-int	is_wall(unsigned int x, unsigned int y, t_cube *cube);
-int	is_wall2(double x, double y, t_cube *cube);
-
+int		is_wall(unsigned int x, unsigned int y, t_cube *cube);
+int		is_wall2(double x, double y, t_cube *cube);
+// int	is_wall(double x, double y, t_cube *cube);
+double	check_wy(t_cube *cube);
+double	check_wx(t_cube *cube);
+double	check_sy(t_cube *cube);
+double	check_sx(t_cube *cube);
 
 #endif
