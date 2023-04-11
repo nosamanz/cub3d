@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:40:43 by osarihan          #+#    #+#             */
-/*   Updated: 2023/03/30 01:58:59 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/11 06:16:46 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,33 @@ int	name_chck(char **av)
 	return (0);
 }
 
-// int	mouse_a(int x, int y, t_cube *cube)
-// {
-// 	if (x > 123)
-// 		cube->player_angle -= AN/ 2;
-// 	if (x < 123)
-// 		cube->player_angle += AN/ 2;
-// 	// mlx_mouse_move(cube->win, 123, 123);
-// }
+int	mouse_a(int x, int y, t_cube *cube)
+{
+	if (x > 123)
+		cube->player_angle -= 4;
+	if (x < 123)
+		cube->player_angle += 4;
+	mlx_mouse_move(cube->win, 123, 123);
+	return (1);
+}
 
 int main(int ac, char **av)
 {
 	t_cube cube;
 	cube.map_status = true;
-	cube.is_wall = false;
 
 	if (ac == 2 && name_chck(av) && map_init(av, &cube))
 	{
 		check_map_size(&cube);
 		init(&cube);
 
-		// mlx_mouse_move(cube.win, 123, 123);
+		mlx_mouse_move(cube.win, 123, 123);
+		mlx_mouse_hide(cube.win);
 
 		mlx_hook(cube.win, 3, 1L<<1, &key_release, &cube);
 		mlx_hook(cube.win, 2, 1L<<0, &key_press, &cube);
 		mlx_hook(cube.win, 17, (0L), ft_close, NULL);
-		// mlx_hook(cube.win, 6, 0L, &mouse_a, &cube);
+		mlx_hook(cube.win, 6, 0L, &mouse_a, &cube);
 		mlx_loop_hook(cube.mlx, &render, &cube);
 		mlx_loop(cube.mlx);
 	}

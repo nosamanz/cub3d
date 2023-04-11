@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:54:58 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 06:59:24 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -6,32 +18,28 @@
 # define CUBE_W 8
 
 //window multiplier
-# define WM 4
+# define WM 3
 //sens
 # define AN 3
-
-# define RED_PIXEL 0xFF0000
-# define GREEN_PIXEL 0xFF00
-
-// # define ESC	53
-// # define W	13
-// # define A	0
-// # define S	1
-// # define D	2
-// # define LA	123
-// # define RA	124
-// # define M	46
+# define ESC	53
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LA		123
+# define RA		124
+# define M		46
 
 
 //FOR WINDOWS
-# define ESC 65307
-# define W	 119
-# define A	 97
-# define S	 115
-# define D	 100
-# define LA	 65361
-# define RA	 65363
-# define M	 109
+// # define ESC 65307
+// # define W	 119
+// # define A	 97
+// # define S	 115
+// # define D	 100
+// # define LA	 65361
+// # define RA	 65363
+// # define M	 109
 
 
 #include "../libft/libft.h"
@@ -86,7 +94,6 @@ typedef struct s_cube
 	void	*win_img_ptr;
 	double y;
 	double x;
-
 	bool w;
 	bool a;
 	bool s;
@@ -118,32 +125,40 @@ typedef struct s_cube
 	double tmp_y;
 	double tmp2_x;
 	double tmp2_y;
-
 	int f_color[3];
 	int c_color[3];
-
-	char **NO;
-	char **SO;
-	char **WE;
-	char **EA;
-
+	char *NO;
+	char *SO;
+	char *WE;
+	char *EA;
 	bool map_status;
 	bool is_wall;
 } t_cube;
-
+//////////key//////////
 int		key_press(int key, t_cube *cube);
 void	handle_keypress(t_cube *cube);
 int		key_release(int key, t_cube *cube);
-int		mouse_a(int x, int y, t_cube *cube);
-
+int	mouse_a(int x, int y, t_cube *cube);
+//////////check//////////
 int		name_chck(char **av);
 int		map_init(char **av, t_cube *cube);
 int		map_check(t_cube *cube);
 void	check_map_size(t_cube *cube);
 void	fill_map_spaces(t_cube *cube);
-//////////render//////////
-int	render(t_cube *cube);
+int		is_wall(unsigned int x, unsigned int y, t_cube *cube);
+int		is_wall2(double x, double y, t_cube *cube);
+double	check_wy(t_cube *cube);
+double	check_wx(t_cube *cube);
+double	check_sy(t_cube *cube);
+double	check_sx(t_cube *cube);
+double	check_ax(t_cube *cube);
+double	check_ay(t_cube *cube);
+double	check_dx(t_cube *cube);
+double	check_dy(t_cube *cube);
 
+//////////render//////////
+int		render(t_cube *cube);
+void	ray_dda(t_cube *cube, double angle, int i);
 //////////init//////////
 void	init(t_cube *cube);
 void	init_win(t_cube *cube);
@@ -158,17 +173,8 @@ void			draw_img(t_cube *cube);
 void			draw_minimap(t_cube *cube);
 void			draw_trans_map(t_cube *cube);
 void			draw_player(t_cube *cube);
-void			draw_ray(t_cube *cube);
+void			draw_ray_and_3d(t_cube *cube);
 unsigned long	rgb_to_hex(int transparent ,int r, int g, int b);
-
-
-void	ray_dda(t_cube *cube, double angle, int i);
-int		is_wall(unsigned int x, unsigned int y, t_cube *cube);
-int		is_wall2(double x, double y, t_cube *cube);
 // int	is_wall(double x, double y, t_cube *cube);
-double	check_wy(t_cube *cube);
-double	check_wx(t_cube *cube);
-double	check_sy(t_cube *cube);
-double	check_sx(t_cube *cube);
 
 #endif

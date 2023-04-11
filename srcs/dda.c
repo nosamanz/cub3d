@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:55:05 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 03:55:05 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	horizontal_while(t_cube *cube, double angle)
@@ -87,7 +99,7 @@ double	vertical(t_cube *cube, double angle)
 void	new_c3d(t_cube *cube, double distance, int raycount, t_xpm xpm)
 {
 	distance = (distance * (double)CUBE_H * ((double)cube->win_height / 2) / (double)cube->win_width);
-	// double	l_end = (((double)cube->win_height) / distance) * (double)CUBE_H;
+	// double	l_end = (((double)cube->win_height) / distance) * (double)CUBE_H; // daha yuksek
 	double l_end = (((double)cube->win_height / 2.0) / distance) * (double)CUBE_H;
 
 	if (cube->hit_h)
@@ -95,10 +107,7 @@ void	new_c3d(t_cube *cube, double distance, int raycount, t_xpm xpm)
 	else if (cube->hit_v)
 		cube->find_pixel = (cube->ray_y - floor(cube->ray_y)) * xpm.width;
 
-	int img_loc = (xpm.width * (xpm.height / 2)) + cube->find_pixel;
-
-	// if ((l_end >= 4000))
-	// 	l_end = 4000;
+	int (img_loc) = (xpm.width * (xpm.height / 2)) + cube->find_pixel;
 	int color;
 	int (l_begin) = 0;
 	while (l_begin < l_end && l_begin <= (int)(cube->win_height / 2.0))
@@ -147,8 +156,6 @@ void	ray_dda(t_cube *cube, double angle, int i)
 
 	cube->hit_h = false;
 	cube->hit_v = false;
-	// cube->ray_dir_x = ((cos(angle * (M_PI / 180)) > 0) * 2) - 1;
-	// cube->ray_dir_y = ((sin(angle * (M_PI / 180)) > 0) * -2) + 1;
 	if (cos(angle * (M_PI / 180)) > 0)
 		cube->ray_dir_x = 1.0;
 	else

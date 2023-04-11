@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_check.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:55:42 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 03:55:43 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void map_check_part1(t_cube *cube)
@@ -25,6 +37,9 @@ void map_check_part1(t_cube *cube)
 				cube->map_status = false;
 			// if (i != 0 && (cube->map[i][j] == 'G' && cube->map[i][j - 1] == '1' && cube->map[i - 1][j - 1] == '0'))
 			// 	cube->map_status = false;
+			if (cube->map[i][j] == '1' && (cube->map[i][j - 1] == '0' && cube->map[i - 1][j - 1] == '1' && cube->map[i - 1][j] == '0'))
+				cube->map_status = false;
+
 		}
 		j = 0;
 	}
@@ -55,14 +70,6 @@ void map_check_part2(t_cube *cube)
 
 int map_check(t_cube *cube)
 {
-
-	// i = 0;
-	// while (cube->map[i])
-	// {
-	// 	printf("%s", cube->map[i]);
-	// 	i++;
-	// }
-	// pause();
 	map_check_part1(cube);
 	map_check_part2(cube);
 	if (cube->map_status == false)

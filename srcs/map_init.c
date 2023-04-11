@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_utils.c                                      :+:      :+:    :+:   */
+/*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/04/07 03:32:49 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/11 07:41:40 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	take_map(t_cube *cube)
 	while (cube->map_file[i] != NULL)
 	{
 		cube->map[j] = ft_strdup(cube->map_file[i]);
+		free(cube->map_file[i]);
 		j++;
 		i++;
 	}
@@ -84,10 +85,9 @@ void	open_and_take(t_cube *cube, char **av)
 	{
 		str = get_next_line(fd);
 		if (str != NULL)
-			cube->map_file[i] = ft_strdup(str);
+			cube->map_file[i] = str;
 		else
 			break;
-		free(str);
 		i++;
 	}
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_init2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:55:39 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 03:55:39 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void color_code_init(t_cube *cube, int *arry, char *str)
@@ -10,8 +22,10 @@ void color_code_init(t_cube *cube, int *arry, char *str)
 	while (i < 3)
 	{
 		arry[i] = ft_atoi(tmp[i]);
+		free(tmp[i]);
 		i++;
 	}
+	free(tmp);
 }
 
 void take_color(t_cube *cube)
@@ -20,6 +34,7 @@ void take_color(t_cube *cube)
 	char **tmp2;
 
 	int (i) = 0;
+	int (j) = 0;
 	while (cube->map_file[i][0] != 'F' && cube->map_file[i][0] != 'C')
 		i++;
 
@@ -30,18 +45,47 @@ void take_color(t_cube *cube)
 	{
 		color_code_init(cube, cube->f_color, tmp[1]);
 		color_code_init(cube, cube->c_color, tmp2[1]);
+		while (tmp2[j])
+		{
+			free(tmp2[j]);
+			j++;
+		}
+		free(tmp2);
+		j = 0;
+		while (tmp[j])
+		{
+			free(tmp[j]);
+			j++;
+		}
+		free(tmp);
 	}
 	else if (tmp[0][0] == 'C')
 	{
 		color_code_init(cube, cube->c_color, tmp2[1]);
 		color_code_init(cube, cube->f_color, tmp[1]);
+		while (tmp2[j])
+		{
+			free(tmp2[j]);
+			j++;
+		}
+		free(tmp2);
+		j = 0;
+		while (tmp[j])
+		{
+			free(tmp[j]);
+			j++;
+		}
+		free(tmp);
 	}
 }
 
-void assign_path(t_cube *cube, char ***texture, int i)
+void assign_path(t_cube *cube, char **texture, int i)
 {
-	*texture = ft_split(cube->map_file[i], 32);
-	(*texture)[1] = ft_strtrim((*texture)[1], "\n");
+	char **str = ft_split(cube->map_file[i], 32);
+	(*texture) = ft_strtrim(str[1], "\n");
+	free(str[0]);
+	free(str[1]);
+	free(str);
 }
 
 void	take_texture(t_cube *cube)

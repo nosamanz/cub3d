@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_and_move.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:55:19 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 04:26:49 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void move(t_cube *cube)
@@ -32,18 +44,18 @@ void	move2(t_cube *cube)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0)) * -1;
 		y += cos(cube->player_angle * (M_PI / 180.0)) * -1;
-		if (!is_wall(x , cube->y, cube))
+		if (!is_wall(x + check_ax(cube), cube->y + check_ay(cube), cube))
 			cube->x = x;
-		if (!is_wall(cube->x, y, cube))
+		if (!is_wall(cube->x + check_ax(cube), y + check_ay(cube), cube))
 			cube->y = y;
 	}
 	if (cube->d)
 	{
 		x += sin(cube->player_angle * (M_PI / 180.0));
 		y += cos(cube->player_angle * (M_PI / 180.0));
-		if (!is_wall(x, cube->y, cube))
+		if (!is_wall(x + check_dx(cube), cube->y + check_dy(cube), cube))
 			cube->x = x;
-		if (!is_wall(cube->x, y, cube))
+		if (!is_wall(cube->x + check_dx(cube), y + check_dy(cube), cube))
 			cube->y = y;
 	}
 }

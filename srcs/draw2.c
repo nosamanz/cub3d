@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:55:14 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 03:55:15 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void ft_draw_small_square(t_cube *cube, int y, int w, int h, int color)
@@ -91,7 +103,7 @@ void draw_ray_and_3d(t_cube *cube)
 				y += ray_y;
 				if (cube->map[(int)(y / (double)CUBE_H)][(int)(x / (double)CUBE_W)] == '1')
 					break;
-				cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(125, 0, 255, 0);
+				cube->map_s.addr[cube->map_s.map_width * (int)y + (int)x] = rgb_to_hex(0, 0, 255, 0);
 			}
 		}
 		ray_dda(cube, ray_angle, i);

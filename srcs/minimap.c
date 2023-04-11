@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/11 03:55:45 by oozcan            #+#    #+#             */
+/*   Updated: 2023/04/11 07:42:09 by oozcan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	fill_g(t_cube *cube)
@@ -35,7 +47,8 @@ void	fill_map_spaces(t_cube *cube)
 			while (index < cube->map_long - 1)
 				new_str[index++] = 'G';
 			new_str[index] = '\0';
-			cube->map[i] = ft_strdup(new_str);
+			free(cube->map[i]);
+			cube->map[i] = new_str;
 		}
 		i++;
 	}
