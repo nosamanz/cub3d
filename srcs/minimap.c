@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:55:45 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/11 07:42:09 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/13 06:38:44 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	fill_g(t_cube *cube)
 	{
 		while (cube->map[i][j] != '\0')
 		{
-			if (cube->map[i][j] != '1' && cube->map[i][j] != '0' && cube->map[i][j] <= 32)
+			if (cube->map[i][j] != '1' && cube->map[i][j] != '0' \
+				&& cube->map[i][j] <= 32)
 				cube->map[i][j] = 'G';
 			j++;
 		}
@@ -35,7 +36,6 @@ void	fill_map_spaces(t_cube *cube)
 	char	*new_str;
 
 	int (i) = 0;
-	int (j) = 0;
 	while (cube->map[i])
 	{
 		if (ft_strlen(cube->map[i]) < cube->map_s.map_width)
@@ -57,11 +57,10 @@ void	fill_map_spaces(t_cube *cube)
 
 void	find_map_size(t_cube *cube)
 {
-	int i;
-	int longest;
-	int len;
-	longest = 0;
-	i = 0;
+	int	len;
+
+	int (i) = 0;
+	int (longest) = 0;
 	while (cube->map[i] != NULL)
 	{
 		len = ft_strlen(cube->map[i]);
@@ -83,8 +82,8 @@ void	check_map_size(t_cube *cube)
 	fill_map_spaces(cube);
 	if (!map_check(cube))
 	{
-		ft_putstr_fd("Map Error !", 2);\
-		exit(0);
+		ft_putstr_fd("Map Error !", 2);
+		exit (0);
 	}
 	cube->x = cube->player_x * CUBE_W;
 	cube->y = cube->player_y * CUBE_H;

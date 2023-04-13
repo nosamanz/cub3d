@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS = -framework OpenGL -framework AppKit -L./minilibx -lmlx
+FLAGS = -Wall -Wextra -Werror -framework OpenGL -framework AppKit -L./minilibx -lmlx
 FLAGS_FWIN = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
 NAME = cub3d
 SRCS = srcs/*.c libft/*.c

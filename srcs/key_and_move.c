@@ -6,13 +6,13 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:55:19 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/11 04:26:49 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/12 23:22:21 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void move(t_cube *cube)
+void	move(t_cube *cube)
 {
 	double (x) = cube->x;
 	double (y) = cube->y;
@@ -74,7 +74,6 @@ void	pov_angle(t_cube *cube)
 		while (cube->player_angle >= 360)
 			cube->player_angle -= 360;
 	}
-	// printf("player angle:%0.2f\n", cube->player_angle);
 }
 
 void	handle_keypress(t_cube *cube)

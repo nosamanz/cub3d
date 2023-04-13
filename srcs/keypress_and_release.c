@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int key_press(int key, t_cube *cube)
+int	key_press(int key, t_cube *cube)
 {
 	if (key == ESC)
 		exit (0);
@@ -35,7 +35,7 @@ int key_press(int key, t_cube *cube)
 	return (1);
 }
 
-int key_release(int key, t_cube *cube)
+int	key_release(int key, t_cube *cube)
 {
 	if (key == W)
 		cube->w = false;

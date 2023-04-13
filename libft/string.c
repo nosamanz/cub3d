@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osarihan <osarihan@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:05:36 by osarihan          #+#    #+#             */
-/*   Updated: 2023/01/10 13:20:29 by osarihan         ###   ########.fr       */
+/*   Updated: 2023/04/13 06:42:07 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_strcmp(char *asd, char *sda)
 
 int	check_char(char *asd, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (asd[i] != c && asd[i] != '\0')

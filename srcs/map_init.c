@@ -6,17 +6,17 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/04/11 07:41:40 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/13 03:07:36 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int find_angle(int way, t_cube *cube)
+int	find_angle(int way, t_cube *cube)
 {
-	cube->map[(int)cube->player_y][(int)cube->player_x] = '0'; // baslangic yerini zemin yapiyoruz.
+	cube->map[(int)cube->player_y][(int)cube->player_x] = '0';
 	if (!way)
-		return(0);
+		return (0);
 	else
 	{
 		if (way == 'N')
@@ -39,7 +39,8 @@ int	find_player(t_cube *cube)
 	{
 		while (cube->map[i][j])
 		{
-			if (cube->map[i][j] == 'N' || cube->map[i][j] == 'E' || cube->map[i][j] == 'W' || cube->map[i][j] == 'S')
+			if (cube->map[i][j] == 'N' || cube->map[i][j] == 'E' || \
+				cube->map[i][j] == 'W' || cube->map[i][j] == 'S')
 			{
 				cube->player_x = j;
 				cube->player_y = i;
@@ -60,7 +61,8 @@ void	take_map(t_cube *cube)
 
 	i = 0;
 	j = 0;
-	while (cube->map_file[i][0] != '1' && cube->map_file[i][0] != '0' && cube->map_file[i][0] != 32)
+	while (cube->map_file[i][0] != '1' && cube->map_file[i][0] != '0' && \
+		cube->map_file[i][0] != 32)
 		i++;
 	cube->map = malloc(sizeof(char **) * 10000);
 	while (cube->map_file[i] != NULL)
@@ -70,11 +72,12 @@ void	take_map(t_cube *cube)
 		j++;
 		i++;
 	}
+	cube->map[j] = ft_strdup("\n");
 }
 
 void	open_and_take(t_cube *cube, char **av)
 {
-	char *str;
+	char	*str;
 
 	int (i) = 0;
 	int (fd) = open(av[1], O_RDONLY);
@@ -87,7 +90,7 @@ void	open_and_take(t_cube *cube, char **av)
 		if (str != NULL)
 			cube->map_file[i] = str;
 		else
-			break;
+			break ;
 		i++;
 	}
 }

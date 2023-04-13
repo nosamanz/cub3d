@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 11:38:32 by osarihan          #+#    #+#             */
-/*   Updated: 2023/04/04 01:10:14 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/13 06:41:44 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
+
 	i = 0;
 	if (dstsize == 0)
 	{
