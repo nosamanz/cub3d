@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:40:43 by osarihan          #+#    #+#             */
-/*   Updated: 2023/04/13 06:37:12 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/13 22:50:11 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ int	name_chck(char **av)
 	return (0);
 }
 
-int	mouse_a(int x, t_cube *cube)
+int	mouse_a(int x, int y, t_cube *cube)
 {
+	(void)y;
 	if (x > 123)
 		cube->player_angle -= MS;
 	if (x < 123)
 		cube->player_angle += MS;
 	mlx_mouse_move(cube->win, 123, 123);
-	return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)

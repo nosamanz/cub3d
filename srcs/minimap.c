@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:55:45 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/13 06:38:44 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/13 23:47:12 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	check_map_size(t_cube *cube)
 	fill_map_spaces(cube);
 	if (!map_check(cube))
 	{
-		ft_putstr_fd("Map Error !", 2);
+		ft_putstr_fd("Map Error !\n", 2);
 		exit (0);
 	}
 	cube->x = cube->player_x * CUBE_W;

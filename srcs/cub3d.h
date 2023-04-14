@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:54:58 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/13 06:40:36 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/14 02:03:09 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 # define CUB3D_H
 
 //settings
-# define CUBE_H	8
-# define CUBE_W	8
+# define CUBE_H	4
+# define CUBE_W	4
 
 //window multiplier
-# define WM		3
+# define WM		7
 //sens
 # define AN		3
-# define MS		4
+# define MS		1.5
 # define ESC	53
 # define W		13
 # define A		0
@@ -138,7 +138,7 @@ typedef struct s_cube
 int				key_press(int key, t_cube *cube);
 void			handle_keypress(t_cube *cube);
 int				key_release(int key, t_cube *cube);
-int				mouse_a(int x, t_cube *cube);
+int				mouse_a(int x, int y, t_cube *cube);
 //////////check//////////
 int				name_chck(char **av);
 int				map_init(char **av, t_cube *cube);
