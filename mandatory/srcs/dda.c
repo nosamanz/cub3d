@@ -12,10 +12,36 @@
 
 #include "cub3d.h"
 
-void	new_c3d(t_cube *cube, double dist, int raycount, t_xpm xpm)
+void	new_c3d_2(t_cube *cube, t_xpm xpm, double l_end, int raycount)
 {
 	int	color;
 
+	int (l_begin) = 0;
+	int (img_loc) = (xpm.width * (xpm.height / 2)) + cube->find_pixel;
+	while (l_begin < l_end && l_begin <= (int)(cube->win_height / 2.0))
+	{
+		if (img_loc + xpm.width * (int)((double)l_begin
+			* ((double)xpm.width / (double)(l_end * 2))) < 64 * 64)
+			color = xpm.img.addr[img_loc + xpm.width * (int)((double)l_begin
+					* ((double)xpm.width / (double)(l_end * 2)))];
+		if (((cube->win_height / 2) * cube->win_width + raycount)
+			+ (cube->win_width * l_begin) < cube->win_height * cube->win_width)
+		cube->win_addr[((cube->win_height / 2) * cube->win_width + raycount)
+				+ (cube->win_width * l_begin)] = color;
+		if (img_loc - xpm.width * (int)
+			((double)l_begin * ((double)xpm.width / (double)(l_end * 2))) >= 0)
+			color = xpm.img.addr[img_loc - xpm.width * (int)
+				((double)l_begin * ((double)xpm.width / (double)(l_end * 2)))];
+		if (((cube->win_height / 2) * cube->win_width + raycount)
+			- (cube->win_width * l_begin) >= 0)
+		cube->win_addr[((cube->win_height / 2) * cube->win_width + raycount)
+				- (cube->win_width * l_begin)] = color;
+		l_begin++;
+	}
+}
+
+void	new_c3d(t_cube *cube, double dist, int raycount, t_xpm xpm)
+{
 	double (l_end) = (((double)cube->win_height / 2.0) / dist) * (double)CUBE_H;
 	dist = (dist * (double)CUBE_H * ((double)cube->win_height / 2.0)
 			/ (double)cube->win_width);
@@ -23,28 +49,7 @@ void	new_c3d(t_cube *cube, double dist, int raycount, t_xpm xpm)
 		cube->find_pixel = (cube->ray_x - floor(cube->ray_x)) * xpm.width;
 	else if (cube->hit_v)
 		cube->find_pixel = (cube->ray_y - floor(cube->ray_y)) * xpm.width;
-	int (img_loc) = (xpm.width * (xpm.height / 2)) + cube->find_pixel;
-	int (l_begin) = 0;
-	while (l_begin < l_end && l_begin <= (int)(cube->win_height / 2.0))
-	{
-		if (img_loc + xpm.width * (int)((double)l_begin
-				* ((double)xpm.width / (double)(l_end * 2))) < 64 * 64)
-			color = xpm.img.addr[img_loc + xpm.width * (int)((double)l_begin
-					* ((double)xpm.width / (double)(l_end * 2)))];
-		if (((cube->win_height / 2) * cube->win_width + raycount)
-			+ (cube->win_width * l_begin) < cube->win_height * cube->win_width)
-		cube->win_addr[((cube->win_height / 2) * cube->win_width + raycount)
-			+ (cube->win_width * l_begin)] = color;
-		if (img_loc - xpm.width * (int)
-			((double)l_begin * ((double)xpm.width / (double)(l_end * 2))) >= 0)
-		color = xpm.img.addr[img_loc - xpm.width * (int)
-			((double)l_begin * ((double)xpm.width / (double)(l_end * 2)))];
-		if (((cube->win_height / 2) * cube->win_width + raycount)
-			- (cube->win_width * l_begin) >= 0)
-		cube->win_addr[((cube->win_height / 2) * cube->win_width + raycount)
-			- (cube->win_width * l_begin)] = color;
-		l_begin++;
-	}
+	new_c3d_2(cube, xpm, l_end, raycount);
 }
 
 void	ray(t_cube *cube, int i)

@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:54:58 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/14 02:03:09 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/16 22:01:33 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@
 //sens
 # define AN		3
 # define MS		1.5
-// # define ESC	53
-// # define W		13
-// # define A		0
-// # define S		1
-// # define D		2
-// # define LA		123
-// # define RA		124
-// # define M		46
+# define ESC	53
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LA		123
+# define RA		124
+# define M		46
 
 // FOR WINDOWS
-# define ESC 65307
-# define W	 119
-# define A	 97
-# define S	 115
-# define D	 100
-# define LA	 65361
-# define RA	 65363
-# define M	 109
+// # define ESC 65307
+// # define W	 119
+// # define A	 97
+// # define S	 115
+// # define D	 100
+// # define LA	 65361
+// # define RA	 65363
+// # define M	 109
 
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"

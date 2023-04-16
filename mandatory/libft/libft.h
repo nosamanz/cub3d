@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 11:15:19 by osarihan          #+#    #+#             */
-/*   Updated: 2023/04/13 06:39:35 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/16 23:29:16 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,17 @@ int		print_hex(unsigned int n, char c);
 int		printer_ptr(unsigned long n);
 int		print_ptr(unsigned long n);
 ///////////////////////////////LST FUNCTIONS///////////////////////////////////
-int		lstcmp(t_list *iter, char *str); //compare the given list to given string
-void	ft_dstry_node(t_list *iter, int c); //delete the number c'th node from the givin list
-char	*list_data(t_list *root, int index); //return the content of the index'th node
-t_list	*list_f_data(t_list *root, int index); //return the index'th node
+//compare the given list to given string
+int		lstcmp(t_list *iter, char *str);
+//delete the number c'th node from the given list
+void	ft_dstry_node(t_list *iter, int c);
+//return the content of the index'th node
+char	*list_data(t_list *root, int index);
+//return the index'th node
+t_list	*list_f_data(t_list *root, int index);
 ////////////////////////////////STRING FUNCTIONS////////////////////////////////
-int		ft_strcmp(char *asd, char *sda); //compare 2 string with each other
-int		check_char(char *asd, char c); //check for the c char in the asd string
+//compare 2 string with each other
+int		ft_strcmp(char *asd, char *sda);
+//check for the c char in the asd string
+int		check_char(char *asd, char c);
 #endif

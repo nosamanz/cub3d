@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:55:42 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/14 01:52:39 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/16 23:35:21 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,19 @@ void	map_check_part2(t_cube *cube)
 	{
 		while (cube->map[i][j])
 		{
-			if (i != 0 && cube->map[i][j] == '1' && cube->map[i - 1][j] == '0' && cube->map[i][j - 1] == '0' && cube->map[i - 1][j - 1] == '1')
+			if (i != 0 && cube->map[i][j] == '1' && cube->map[i - 1][j] == '0' \
+				&& cube->map[i][j - 1] == '0' && cube->map[i - 1][j - 1] == '1')
 				cube->map_status = false;
-			if (i != 0 && cube->map[i][j] == '0' && cube->map[i - 1][j] == '1' && cube->map[i - 1][j - 1] == 'G')
+			if (i != 0 && cube->map[i][j] == '0' && cube->map[i - 1][j] == '1' \
+				&& cube->map[i - 1][j - 1] == 'G')
 				cube->map_status = false;
-			if (i != 0 && cube->map[i][j] == '0' && cube->map[i - 1][j + 1] == 'G')
+			if (i != 0 && cube->map[i][j] == '0' \
+				&& cube->map[i - 1][j + 1] == 'G')
 				cube->map_status = false;
-			if (i != 0 && cube->map[i][j] == '0' && (cube->map[i + 1][j - 1] == 'G' || cube->map[i + 1][j + 1] == 'G') && i <= cube->map_height)
+			if (i != 0 && cube->map[i][j] == '0' &&
+				(cube->map[i + 1][j - 1] == 'G'
+					|| cube->map[i + 1][j + 1] == 'G')
+					&& i <= cube->map_height)
 				cube->map_status = false;
 			j++;
 		}
@@ -90,7 +96,6 @@ void	map_check_part3(t_cube *cube)
 
 int	map_check(t_cube *cube)
 {
-
 	map_check_part1(cube);
 	if (cube->map_status != false)
 		map_check_part2(cube);
