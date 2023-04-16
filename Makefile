@@ -7,7 +7,9 @@ SRCS = mandatory/srcs/*.c mandatory/libft/*.c
 SRCS_BONUS = bonus/srcs/*.c bonus/libft/*.c
 HEADERS = bonus/srcs/*.h bonus/libft/*.h mandatory/srcs/*.h mandatory/libft/*.h
 
-all: $(SRCS)
+all: $(NAME)
+
+$(NAME):
 	@$(CC) $(SRCS) -o $(NAME) $(FLAGS)
 
 windows: $(SRCS)
@@ -25,7 +27,9 @@ fclean:	clean
 
 re: fclean all
 
-bonus: $(SRCS_BONUS)
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS):
 	@$(CC) $(SRCS_BONUS) -o $(NAME_BONUS) $(FLAGS)
 
 norm:
