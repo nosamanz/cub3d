@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:54:58 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/14 02:03:09 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/17 01:22:38 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define CUBE_W	4
 
 //window multiplier
-# define WM		7
+# define WM		9
 //sens
 # define AN		3
 # define MS		1.5

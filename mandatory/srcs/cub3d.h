@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 03:54:58 by oozcan            #+#    #+#             */
-/*   Updated: 2023/04/16 22:01:33 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/17 02:07:31 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //window multiplier
 # define WM		7
 //sens
-# define AN		3
+# define AN		2
 # define MS		1.5
 # define ESC	53
 # define W		13

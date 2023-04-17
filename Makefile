@@ -9,7 +9,7 @@ HEADERS = bonus/srcs/*.h bonus/libft/*.h mandatory/srcs/*.h mandatory/libft/*.h
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRCS) $(HEADERS)
 	@$(CC) $(SRCS) -o $(NAME) $(FLAGS)
 
 windows: $(SRCS)
@@ -29,7 +29,7 @@ re: fclean all
 
 bonus: $(NAME_BONUS)
 
-$(NAME_BONUS):
+$(NAME_BONUS): $(SRCS_BONUS) $(HEADERS)
 	@$(CC) $(SRCS_BONUS) -o $(NAME_BONUS) $(FLAGS)
 
 norm:
