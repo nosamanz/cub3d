@@ -6,7 +6,7 @@
 /*   By: oozcan <oozcan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:07:58 by osarihan          #+#    #+#             */
-/*   Updated: 2023/04/14 06:12:49 by oozcan           ###   ########.fr       */
+/*   Updated: 2023/04/17 10:23:03 by oozcan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	take_map(t_cube *cube)
 		cube->map_file[i][0] != 32)
 		i++;
 	cube->map = malloc(sizeof(char **) * 10000);
-	cube->map[j] = ft_strdup(cube->map_file[i]);
+	cube->map[j] = cube->map_file[i];
 	while (cube->map_file[i] != NULL)
 	{
 		cube->map[j] = ft_strdup(cube->map_file[i]);
